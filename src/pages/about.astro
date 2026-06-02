@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LogoMark from '../components/LogoMark.astro';
 import { company } from '../data/company';
 import { offices } from '../data/offices';
 ---
@@ -9,14 +10,20 @@ import { offices } from '../data/offices';
   description="Learn about Global Infrastructure Engineering — serving power, oil & gas, offshore, manufacturing, and process plant industries across Asia."
 >
   <section class="bg-gie-navy py-14 text-white">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <h1 class="text-3xl font-bold sm:text-4xl">About Us</h1>
-      <p class="mt-3 max-w-2xl text-gray-200">{company.tagline}</p>
+    <div class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 sm:flex-row sm:items-center sm:gap-6 sm:px-6">
+      <LogoMark size="lg" onDark />
+      <div>
+        <h1 class="text-3xl font-bold sm:text-4xl">About Us</h1>
+        <p class="mt-3 max-w-2xl text-gray-200">{company.tagline}</p>
+      </div>
     </div>
   </section>
 
   <section class="py-16">
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <div class="mb-8 flex justify-center">
+        <LogoMark size="md" />
+      </div>
       <p class="text-lg leading-relaxed text-gie-text">
         {company.name} is an engineering services company specializing in valve servicing,
         actuators, pumps, field instrumentation, and technical training for industrial facilities.

@@ -1,0 +1,43 @@
+---
+import { company } from '../data/company';
+import { asset } from '../utils/url';
+
+interface Props {
+  size?: 'xs' | 'sm' | 'md' | 'lg';
+  onDark?: boolean;
+  class?: string;
+}
+
+const { size = 'md', onDark = false, class: className = '' } = Astro.props;
+
+const sizes = {
+  xs: 'h-6 max-w-[48px]',
+  sm: 'h-10 max-w-[80px]',
+  md: 'h-14 max-w-[120px]',
+  lg: 'h-20 max-w-[180px]',
+};
+---
+
+{
+  onDark ? (
+    <span class:list={['inline-block rounded-lg bg-white p-2 shadow-sm', className]}>
+      <img
+        src={asset('images/logo/gie-logo.png')}
+        alt={company.logoAlt}
+        class:list={['w-auto object-contain', sizes[size]]}
+        width="180"
+        height="80"
+        loading="lazy"
+      />
+    </span>
+  ) : (
+    <img
+      src={asset('images/logo/gie-logo.png')}
+      alt={company.logoAlt}
+      class:list={['w-auto object-contain', sizes[size], className]}
+      width="180"
+      height="80"
+      loading="lazy"
+    />
+  )
+}
