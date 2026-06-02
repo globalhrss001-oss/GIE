@@ -33,6 +33,7 @@ const currentPath = Astro.url.pathname;
         {
           navLinks.map((link) => {
             const href = url(link.href);
+            const isContact = link.href === '/contact/';
             const isActive =
               link.href === '/'
                 ? currentPath === url('/') || currentPath === '/GIE/' || currentPath === '/GIE'
@@ -42,9 +43,11 @@ const currentPath = Astro.url.pathname;
                 href={href}
                 class:list={[
                   'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                  isActive
-                    ? 'bg-gie-navy text-white'
-                    : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
+                  isContact
+                    ? 'bg-gie-navy font-semibold text-white hover:bg-gie-navy-light'
+                    : isActive
+                      ? 'bg-gie-navy text-white'
+                      : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
                 ]}
               >
                 {link.label}
@@ -53,13 +56,6 @@ const currentPath = Astro.url.pathname;
           })
         }
       </nav>
-
-      <a
-        href={url('/contact/')}
-        class="rounded-md bg-gie-navy px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-gie-navy-light"
-      >
-        Contact Us
-      </a>
     </div>
 
     <button
@@ -83,21 +79,23 @@ const currentPath = Astro.url.pathname;
   >
     <div class="mx-auto flex max-w-6xl flex-col px-4 py-2 sm:px-6">
       {
-        navLinks.map((link) => (
-          <a
-            href={url(link.href)}
-            class="rounded-md px-3 py-3 text-sm font-medium text-gie-text hover:bg-gie-gray hover:text-gie-navy"
-          >
-            {link.label}
-          </a>
-        ))
+        navLinks.map((link) => {
+          const isContact = link.href === '/contact/';
+          return (
+            <a
+              href={url(link.href)}
+              class:list={[
+                'rounded-md px-3 py-3 text-sm font-medium',
+                isContact
+                  ? 'bg-gie-navy text-center font-semibold text-white'
+                  : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
+              ]}
+            >
+              {link.label}
+            </a>
+          );
+        })
       }
-      <a
-        href={url('/contact/')}
-        class="mt-2 mb-2 rounded-md bg-gie-navy px-3 py-3 text-center text-sm font-semibold text-white"
-      >
-        Contact Us
-      </a>
     </div>
   </nav>
 </header>
