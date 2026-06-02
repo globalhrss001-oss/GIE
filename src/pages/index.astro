@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import IndustryCard from '../components/IndustryCard.astro';
+import OfficeCard from '../components/OfficeCard.astro';
+import { company } from '../data/company';
+import { services } from '../data/services';
+import { industries } from '../data/industries';
+import { offices } from '../data/offices';
+import { url } from '../utils/url';
+
+const previewServices = services.slice(0, 6);
+---
+
+<BaseLayout title={company.name} description={company.description}>
+  <Hero />
+
+  <section class="bg-gie-gray py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-10 text-center">
+        <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Our Services</h2>
+        <p class="mt-2 text-gie-muted">
+          Comprehensive engineering services for valves, actuators, and field instrumentation.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {previewServices.map((service) => <ServiceCard service={service} />)}
+      </div>
+      <div class="mt-10 text-center">
+        <a
+          href={url('/services/')}
+          class="inline-block rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-gie-navy-light"
+        >
+          View All Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-10 text-center">
+        <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Industries We Serve</h2>
+        <p class="mt-2 text-gie-muted">Supporting critical sectors across Asia and globally.</p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {industries.map((industry) => <IndustryCard industry={industry} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gie-gray py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-10 text-center">
+        <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Regional Presence</h2>
+        <p class="mt-2 text-gie-muted">
+          Serving clients in Singapore, Malaysia, Myanmar, and internationally.
+        </p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {offices.map((office) => <OfficeCard office={office} />)}
+      </div>
+      <div class="mt-10 text-center">
+        <a
+          href={url('/contact/')}
+          class="inline-block rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-gie-navy-light"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

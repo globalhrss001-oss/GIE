@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import { services } from '../data/services';
+---
+
+<BaseLayout
+  title="Services"
+  description="GIE provides motorized valve overhaul, control valve servicing, safety valve testing, actuators, pumps, in situ machining, bolt torquing, N₂ testing, field instrumentation, valves management, and training."
+>
+  <section class="bg-gie-navy py-14 text-white">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <h1 class="text-3xl font-bold sm:text-4xl">Our Services</h1>
+      <p class="mt-3 max-w-2xl text-gray-200">
+        End-to-end engineering services for valves, actuators, and field equipment across critical
+        industries.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((service) => <ServiceCard service={service} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

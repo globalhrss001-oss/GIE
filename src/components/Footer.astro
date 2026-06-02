@@ -1,0 +1,55 @@
+---
+import { company, navLinks } from '../data/company';
+import { primaryOffice } from '../data/offices';
+import { url } from '../utils/url';
+---
+
+<footer class="border-t border-gray-200 bg-gie-navy text-white">
+  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-3">
+    <div>
+      <p class="text-sm font-bold tracking-wider uppercase">Global Infrastructure Engineering</p>
+      <p class="mt-2 text-sm text-gray-300">{company.tagline}</p>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wide text-gray-300">Quick Links</p>
+      <ul class="mt-3 space-y-2">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={url(link.href)} class="text-sm text-gray-200 hover:text-white">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wide text-gray-300">Singapore Office</p>
+      <address class="mt-3 space-y-1 text-sm not-italic text-gray-200">
+        {
+          primaryOffice.address?.map((line) => (
+            <span class="block">{line}</span>
+          ))
+        }
+        <span class="block pt-2">
+          Tel: <a href={`tel:${primaryOffice.phone}`} class="hover:text-white">{primaryOffice.phone}</a>
+        </span>
+        <span class="block">
+          Email:{' '}
+          <a href={`mailto:${primaryOffice.email}`} class="hover:text-white">{primaryOffice.email}</a>
+        </span>
+      </address>
+    </div>
+  </div>
+
+  <div class="border-t border-gie-navy-light">
+    <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+      <p class="text-center text-xs text-gray-400">
+        {company.copyright}
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,17 @@
+---
+import type { Industry } from '../data/industries';
+
+interface Props {
+  industry: Industry;
+}
+
+const { industry } = Astro.props;
+---
+
+<article class="rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
+  <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gie-navy text-lg font-bold text-white">
+    {industry.name.charAt(0)}
+  </div>
+  <h3 class="text-lg font-semibold text-gie-navy">{industry.name}</h3>
+  <p class="mt-2 text-sm leading-relaxed text-gie-muted">{industry.description}</p>
+</article>

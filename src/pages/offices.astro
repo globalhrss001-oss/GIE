@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OfficeCard from '../components/OfficeCard.astro';
+import { offices } from '../data/offices';
+---
+
+<BaseLayout
+  title="Regional Offices"
+  description="Contact Global Infrastructure Engineering offices in Singapore, Malaysia, and Myanmar."
+>
+  <section class="bg-gie-navy py-14 text-white">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <h1 class="text-3xl font-bold sm:text-4xl">Regional Offices</h1>
+      <p class="mt-3 max-w-2xl text-gray-200">
+        Global Infrastructure Engineering operates across Singapore, Malaysia, and Myanmar to serve
+        clients throughout the region and internationally.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-8 md:grid-cols-3">
+        {offices.map((office) => <OfficeCard office={office} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

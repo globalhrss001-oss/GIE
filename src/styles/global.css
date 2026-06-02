@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+@theme {
+  --color-gie-navy: #1a2b4a;
+  --color-gie-navy-light: #243656;
+  --color-gie-gray: #f5f5f5;
+  --color-gie-text: #1a1a1a;
+  --color-gie-muted: #6b7280;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-gie-text);
+  background-color: #ffffff;
+}

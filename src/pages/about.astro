@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { company } from '../data/company';
+import { offices } from '../data/offices';
+---
+
+<BaseLayout
+  title="About"
+  description="Learn about Global Infrastructure Engineering — serving power, oil & gas, offshore, manufacturing, and process plant industries across Asia."
+>
+  <section class="bg-gie-navy py-14 text-white">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <h1 class="text-3xl font-bold sm:text-4xl">About Us</h1>
+      <p class="mt-3 max-w-2xl text-gray-200">{company.tagline}</p>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <p class="text-lg leading-relaxed text-gie-text">
+        {company.name} is an engineering services company specializing in valve servicing,
+        actuators, pumps, field instrumentation, and technical training for industrial facilities.
+      </p>
+      <p class="mt-4 leading-relaxed text-gie-muted">
+        With operations in Singapore, Malaysia, and Myanmar, we support clients across the power,
+        oil &amp; gas, offshore &amp; marine, manufacturing, and process plant sectors throughout
+        the region and globally.
+      </p>
+      <div class="mt-8 rounded-lg border border-dashed border-gray-300 bg-gie-gray p-6 text-center">
+        <p class="text-sm font-medium text-gie-muted">More content coming soon.</p>
+      </div>
+
+      <div class="mt-12">
+        <h2 class="text-xl font-bold text-gie-navy">Our Regional Entities</h2>
+        <ul class="mt-4 space-y-3">
+          {
+            offices.map((office) => (
+              <li class="rounded-md border border-gray-200 bg-white px-4 py-3 text-sm">
+                <span class="font-semibold text-gie-navy">{office.country}:</span>{' '}
+                {office.entity}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+import type { GalleryImage } from '../data/gallery';
+import { asset } from '../utils/url';
+
+interface Props {
+  images: GalleryImage[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    images.map((image) => (
+      <figure class="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+        <img
+          src={asset(image.src.startsWith('/') ? image.src.slice(1) : image.src)}
+          alt={image.alt}
+          class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+          width="640"
+          height="480"
+        />
+      </figure>
+    ))
+  }
+</div>

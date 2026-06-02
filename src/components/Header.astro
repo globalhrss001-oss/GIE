@@ -1,0 +1,113 @@
+---
+import { company, navLinks } from '../data/company';
+import { asset, url } from '../utils/url';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+    <a href={url('/')} class="flex items-center gap-3">
+      <img
+        src={asset('images/logo/gie-logo.png')}
+        alt={company.logoAlt}
+        class="h-10 w-10 object-contain sm:h-12 sm:w-12"
+        width="48"
+        height="48"
+      />
+      <span class="hidden leading-tight sm:block">
+        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase">
+          Global
+        </span>
+        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase">
+          Infrastructure
+        </span>
+        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase">
+          Engineering
+        </span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
+      {
+        navLinks.map((link) => {
+          const href = url(link.href);
+          const isActive =
+            link.href === '/'
+              ? currentPath === url('/') || currentPath === '/GIE/' || currentPath === '/GIE'
+              : currentPath.includes(link.href);
+          return (
+            <a
+              href={href}
+              class:list={[
+                'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                isActive
+                  ? 'bg-gie-navy text-white'
+                  : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
+              ]}
+            >
+              {link.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <a
+      href={url('/contact/')}
+      class="hidden rounded-md bg-gie-navy px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-gie-navy-light sm:inline-block"
+    >
+      Contact Us
+    </a>
+
+    <button
+      type="button"
+      id="mobile-menu-btn"
+      class="inline-flex items-center justify-center rounded-md p-2 text-gie-navy hover:bg-gie-gray lg:hidden"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <nav
+    id="mobile-menu"
+    class="hidden border-t border-gray-200 bg-white lg:hidden"
+    aria-label="Mobile navigation"
+  >
+    <div class="mx-auto flex max-w-6xl flex-col px-4 py-2 sm:px-6">
+      {
+        navLinks.map((link) => (
+          <a
+            href={url(link.href)}
+            class="rounded-md px-3 py-3 text-sm font-medium text-gie-text hover:bg-gie-gray hover:text-gie-navy"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href={url('/contact/')}
+        class="mt-2 mb-2 rounded-md bg-gie-navy px-3 py-3 text-center text-sm font-semibold text-white"
+      >
+        Contact Us
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  btn?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden', isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    btn.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+  });
+</script>
