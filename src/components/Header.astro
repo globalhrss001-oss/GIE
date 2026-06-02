@@ -6,23 +6,23 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-    <a href={url('/')} class="flex items-center gap-3">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 sm:px-6 sm:py-3">
+    <a href={url('/')} class="flex items-center gap-3 sm:gap-4">
       <img
         src={asset('images/logo/gie-logo.png')}
         alt={company.logoAlt}
-        class="h-12 w-auto max-w-[140px] object-contain sm:h-14 sm:max-w-[160px]"
-        width="160"
-        height="56"
+        class="h-16 w-auto max-w-[200px] object-contain sm:h-[72px] sm:max-w-[240px] lg:h-20 lg:max-w-[280px]"
+        width="280"
+        height="80"
       />
       <span class="hidden leading-tight sm:block">
-        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase">
+        <span class="block text-sm font-semibold tracking-wider text-gie-navy uppercase lg:text-base">
           Global
         </span>
-        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase">
+        <span class="block text-sm font-semibold tracking-wider text-gie-navy uppercase lg:text-base">
           Infrastructure
         </span>
-        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase">
+        <span class="block text-sm font-semibold tracking-wider text-gie-navy uppercase lg:text-base">
           Engineering
         </span>
       </span>
