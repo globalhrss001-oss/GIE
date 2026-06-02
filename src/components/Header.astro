@@ -28,37 +28,39 @@ const currentPath = Astro.url.pathname;
       </span>
     </a>
 
-    <nav class="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
-      {
-        navLinks.map((link) => {
-          const href = url(link.href);
-          const isActive =
-            link.href === '/'
-              ? currentPath === url('/') || currentPath === '/GIE/' || currentPath === '/GIE'
-              : currentPath.includes(link.href);
-          return (
-            <a
-              href={href}
-              class:list={[
-                'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                isActive
-                  ? 'bg-gie-navy text-white'
-                  : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
-              ]}
-            >
-              {link.label}
-            </a>
-          );
-        })
-      }
-    </nav>
+    <div class="hidden items-center gap-2 lg:flex">
+      <nav class="flex items-center gap-1" aria-label="Main navigation">
+        {
+          navLinks.map((link) => {
+            const href = url(link.href);
+            const isActive =
+              link.href === '/'
+                ? currentPath === url('/') || currentPath === '/GIE/' || currentPath === '/GIE'
+                : currentPath.includes(link.href);
+            return (
+              <a
+                href={href}
+                class:list={[
+                  'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  isActive
+                    ? 'bg-gie-navy text-white'
+                    : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
+                ]}
+              >
+                {link.label}
+              </a>
+            );
+          })
+        }
+      </nav>
 
-    <a
-      href={url('/contact/')}
-      class="hidden rounded-md bg-gie-navy px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-gie-navy-light sm:inline-block"
-    >
-      Contact Us
-    </a>
+      <a
+        href={url('/contact/')}
+        class="rounded-md bg-gie-navy px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-gie-navy-light"
+      >
+        Contact Us
+      </a>
+    </div>
 
     <button
       type="button"
