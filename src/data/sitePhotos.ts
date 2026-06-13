@@ -22,9 +22,9 @@ export const workingPhotos: WorkingPhoto[] = [
     title: 'On-Site Field Service',
   },
   {
-    src: '/images/working/working-site-2.jpeg',
-    alt: 'GIE team performing valve servicing at client plant',
-    title: 'Plant Maintenance',
+    src: '/images/working/working-evt-testing.png',
+    alt: 'GIE technicians performing EVT preventive testing',
+    title: 'EVT (prevent test)',
   },
   {
     src: '/images/working/working-site-3.jpeg',

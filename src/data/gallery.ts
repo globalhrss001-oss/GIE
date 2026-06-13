@@ -64,11 +64,11 @@ export const galleryImages: GalleryImage[] = [
     description: 'GIE field team deployed at a client industrial facility.',
   },
   {
-    src: '/images/working/working-site-2.jpeg',
-    alt: 'GIE team performing valve servicing at client plant',
-    title: 'Plant Maintenance',
+    src: '/images/working/working-evt-testing.png',
+    alt: 'GIE technicians performing EVT preventive testing',
+    title: 'EVT (prevent test)',
     category: 'Field Operations',
-    description: 'Valve and equipment servicing at a process plant.',
+    description: 'Electric valve testing and preventive testing on-site.',
   },
   {
     src: '/images/working/working-site-3.jpeg',
