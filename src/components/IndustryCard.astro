@@ -4,30 +4,48 @@ import { asset } from '../utils/url';
 
 interface Props {
   industry: Industry;
+  variant?: 'compact' | 'horizontal';
 }
 
-const { industry } = Astro.props;
+const { industry, variant = 'compact' } = Astro.props;
 
 const imagePath = industry.image.startsWith('/')
   ? industry.image.slice(1)
   : industry.image;
 ---
 
-<article class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
-  <div class="flex flex-col sm:flex-row sm:items-stretch">
-    <div class="w-full shrink-0 sm:w-44 md:w-52 lg:w-60">
+{
+  variant === 'horizontal' ? (
+    <article class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+      <div class="flex flex-col sm:flex-row sm:items-stretch">
+        <div class="w-full shrink-0 sm:w-44 md:w-52 lg:w-60">
+          <img
+            src={asset(imagePath)}
+            alt={industry.imageAlt}
+            class="h-44 w-full object-cover sm:h-full sm:min-h-[10rem]"
+            loading="lazy"
+          />
+        </div>
+        <div class="flex flex-1 flex-col justify-center px-5 py-5 sm:px-6 sm:py-6">
+          <h3 class="text-lg font-bold text-gie-navy sm:text-xl">{industry.name}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-gie-muted sm:text-base">
+            {industry.description}
+          </p>
+        </div>
+      </div>
+    </article>
+  ) : (
+    <article class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
       <img
         src={asset(imagePath)}
         alt={industry.imageAlt}
-        class="h-44 w-full object-cover sm:h-full sm:min-h-[10rem]"
+        class="aspect-[16/10] w-full object-cover"
         loading="lazy"
       />
-    </div>
-    <div class="flex flex-1 flex-col justify-center px-5 py-5 sm:px-6 sm:py-6">
-      <h3 class="text-lg font-bold text-gie-navy sm:text-xl">{industry.name}</h3>
-      <p class="mt-2 text-sm leading-relaxed text-gie-muted sm:text-base">
-        {industry.description}
-      </p>
-    </div>
-  </div>
-</article>
+      <div class="p-4 sm:p-5">
+        <h3 class="text-base font-bold text-gie-navy sm:text-lg">{industry.name}</h3>
+        <p class="mt-1.5 text-sm leading-relaxed text-gie-muted">{industry.description}</p>
+      </div>
+    </article>
+  )
+}
