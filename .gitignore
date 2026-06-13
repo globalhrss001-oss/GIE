@@ -26,3 +26,6 @@ desktop.ini
 
 # Source photos (optimized copies live in public/images/)
 Photos/
+
+# Company profile PDF (source document, not deployed)
+GIE Profile/

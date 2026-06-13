@@ -1,13 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LogoMark from '../components/LogoMark.astro';
+import CertificationBadges from '../components/CertificationBadges.astro';
+import ManufacturerList from '../components/ManufacturerList.astro';
+import ClientList from '../components/ClientList.astro';
+import OfficeCard from '../components/OfficeCard.astro';
 import { company } from '../data/company';
 import { offices } from '../data/offices';
 ---
 
 <BaseLayout
   title="About"
-  description="Learn about Global Infrastructure Engineering — serving power, oil & gas, offshore, manufacturing, and process plant industries across Asia."
+  description="Global Infrastructure Engineering — established 2016 in Singapore. Valve automation, mechanical services, ISO certified, serving Asia Pacific."
 >
   <section class="bg-gie-navy py-14 text-white">
     <div class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 sm:flex-row sm:items-center sm:gap-6 sm:px-6">
@@ -15,40 +19,60 @@ import { offices } from '../data/offices';
       <div>
         <h1 class="text-3xl font-bold sm:text-4xl">About Us</h1>
         <p class="mt-3 max-w-2xl text-gray-200">{company.tagline}</p>
+        <p class="mt-2 text-sm text-gray-300">
+          Est. {company.foundedYear} · Headquarters: {company.headquarters}
+        </p>
       </div>
     </div>
   </section>
 
   <section class="py-16">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6">
-      <div class="mb-8 flex justify-center">
-        <LogoMark size="md" />
-      </div>
-      <p class="text-lg leading-relaxed text-gie-text">
-        {company.name} is an engineering services company specializing in valve servicing,
-        actuators, pumps, field instrumentation, and technical training for industrial facilities.
-      </p>
-      <p class="mt-4 leading-relaxed text-gie-muted">
-        With operations in Singapore, Malaysia, and Myanmar, we support clients across the power,
-        oil &amp; gas, offshore &amp; marine, manufacturing, and process plant sectors throughout
-        the region and globally.
-      </p>
-      <div class="mt-8 rounded-lg border border-dashed border-gray-300 bg-gie-gray p-6 text-center">
-        <p class="text-sm font-medium text-gie-muted">More content coming soon.</p>
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl">
+        {
+          company.aboutIntro.map((paragraph) => (
+            <p class="mt-4 text-lg leading-relaxed text-gie-text first:mt-0">{paragraph}</p>
+          ))
+        }
       </div>
 
-      <div class="mt-12">
-        <h2 class="text-xl font-bold text-gie-navy">Our Regional Entities</h2>
-        <ul class="mt-4 space-y-3">
-          {
-            offices.map((office) => (
-              <li class="rounded-md border border-gray-200 bg-white px-4 py-3 text-sm">
-                <span class="font-semibold text-gie-navy">{office.country}:</span>{' '}
-                {office.entity}
-              </li>
-            ))
-          }
-        </ul>
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-gie-navy">Our Certifications</h2>
+        <p class="mt-2 text-gie-muted">Quality, safety, and environmental management standards.</p>
+        <div class="mt-6">
+          <CertificationBadges />
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-gie-navy">Manufacturer Expertise</h2>
+        <p class="mt-2 text-gie-muted">
+          Our service personnel have extensive expertise across leading valve and actuator
+          manufacturers.
+        </p>
+        <div class="mt-6">
+          <ManufacturerList />
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-gie-navy">Client References</h2>
+        <p class="mt-2 text-gie-muted">
+          Trusted by leading companies across Singapore, Myanmar, and the Asia Pacific region.
+        </p>
+        <div class="mt-6">
+          <ClientList />
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-gie-navy">Regional Offices</h2>
+        <p class="mt-2 text-gie-muted">
+          Branches in Malaysia, Thailand, and Myanmar with headquarters in Singapore.
+        </p>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {offices.map((office) => <OfficeCard office={office} />)}
+        </div>
       </div>
     </div>
   </section>

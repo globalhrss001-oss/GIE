@@ -23,6 +23,9 @@ import LogoMark from './LogoMark.astro';
         {company.name}
       </h1>
       <p class="mt-4 text-lg text-gray-200 sm:text-xl">{company.tagline}</p>
+      <p class="mt-2 text-sm text-gray-300">
+        Est. {company.foundedYear} · Headquarters: {company.headquarters}
+      </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a
           href={url('/services/')}

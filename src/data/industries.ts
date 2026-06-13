@@ -9,7 +9,7 @@ export const industries: Industry[] = [
     id: 'power',
     name: 'Power',
     description:
-      'Valve and instrumentation services supporting power generation facilities and utilities.',
+      'Valve and instrumentation services for power generation plants, thermal facilities, and utilities.',
   },
   {
     id: 'oil-gas',
@@ -18,22 +18,22 @@ export const industries: Industry[] = [
       'Specialized servicing for upstream, midstream, and downstream oil and gas operations.',
   },
   {
-    id: 'offshore-marine',
-    name: 'Offshore & Marine',
+    id: 'offshore',
+    name: 'Offshore',
     description:
-      'Field services and equipment support for offshore platforms and marine installations.',
+      'Field services and equipment support for offshore platforms, FPSO, and marine installations.',
   },
   {
-    id: 'manufacturing',
-    name: 'Manufacturing',
+    id: 'petrochemical',
+    name: 'Petrochemical',
     description:
-      'Maintenance and calibration services for manufacturing plants and production facilities.',
+      'Valve automation and mechanical services for petrochemical and process plant operations.',
   },
   {
-    id: 'process-plants',
-    name: 'Process Plants',
+    id: 'food',
+    name: 'Food',
     description:
-      'Comprehensive valve and instrument support for chemical and process plant operations.',
+      'Instrumentation calibration and valve servicing for food and beverage production facilities.',
   },
 ];
 

@@ -1,0 +1,22 @@
+---
+import { clientGroups } from '../data/clients';
+---
+
+<div class="space-y-8">
+  {
+    clientGroups.map((group) => (
+      <div>
+        <h3 class="text-lg font-bold text-gie-navy">{group.country}</h3>
+        <ul class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            group.clients.map((client) => (
+              <li class="rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gie-text">
+                {client}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    ))
+  }
+</div>

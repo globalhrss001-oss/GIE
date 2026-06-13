@@ -9,10 +9,10 @@ export interface GalleryImage {
 export const galleryImages: GalleryImage[] = [
   {
     src: '/images/gallery/service-1.jpeg',
-    alt: 'GIE mobile workshop container at an industrial site',
-    title: 'Mobile Workshop Unit',
+    alt: 'GIE mobile test bench container at an industrial site',
+    title: 'Mobile Test Bench Container',
     category: 'Mobile Workshop',
-    description: 'Fully equipped mobile workshop deployed on-site for valve and equipment servicing.',
+    description: '20ft mobile test bench container (200 Bar) deployed on-site for valve testing.',
   },
   {
     src: '/images/gallery/service-2.jpeg',
@@ -33,13 +33,13 @@ export const galleryImages: GalleryImage[] = [
     alt: 'Safety valve lapping and servicing by GIE',
     title: 'Safety Valve Lapping',
     category: 'Safety Valve Lapping',
-    description: 'Expert lapping and overhaul of safety valves to restore seal integrity.',
+    description: 'Ventil in situ lapping for safety valves to restore seal integrity.',
   },
   {
     src: '/images/gallery/service-5.jpg',
     alt: 'GIE engineer working on safety valve equipment',
     title: 'Safety Valve Overhaul',
-    category: 'Safety Valve Lapping',
+    category: 'Safety Valve Servicing',
     description: 'Hands-on servicing and inspection of critical safety valve assemblies.',
   },
   {
@@ -54,6 +54,6 @@ export const galleryImages: GalleryImage[] = [
     alt: 'GIE valve training session for plant personnel',
     title: 'Valve Training Program',
     category: 'Valve Training',
-    description: 'Technical training and certification for valve operation and maintenance.',
+    description: 'Control and safety valve training with standard compliance certification.',
   },
 ];

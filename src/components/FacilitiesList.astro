@@ -1,0 +1,15 @@
+---
+import { facilities } from '../data/facilities';
+---
+
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    facilities.map((facility) => (
+      <article class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+        <div class="mb-2 h-1 w-10 rounded bg-gie-navy"></div>
+        <h3 class="text-base font-semibold text-gie-navy">{facility.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-gie-muted">{facility.description}</p>
+      </article>
+    ))
+  }
+</div>

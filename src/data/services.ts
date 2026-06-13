@@ -7,27 +7,27 @@ export interface Service {
 export const services: Service[] = [
   {
     id: 'motorized-valve',
-    title: 'Motorized Valve Overhaul & Integration',
+    title: 'Motorized Valve Integration & Servicing',
     description:
-      'Complete overhaul, integration, and commissioning of motorized valves for industrial process systems.',
+      'Integration, overhaul, and on-site servicing of motorized valves including large-format units up to 24 inches.',
   },
   {
     id: 'control-valve',
-    title: 'Control Valve Servicing',
+    title: 'Control Valve Servicing & Calibration',
     description:
-      'Inspection, repair, and calibration of control valves to restore precise flow and pressure regulation.',
+      'Inspection, repair, calibration, and in situ servicing of control valves to restore precise flow and pressure regulation.',
   },
   {
     id: 'safety-valve',
-    title: 'Safety Valve Calibration & Live Testing',
+    title: 'Safety Valve Calibration, Overhaul & Live Testing',
     description:
-      'Safety valve calibration, overhaul servicing, and live testing to meet operational and regulatory standards.',
+      'Safety valve calibration, overhaul servicing, live testing, and electric valve testing including HRSG boiler applications.',
   },
   {
     id: 'actuators',
-    title: 'Actuators Servicing',
+    title: 'Actuators & Electrical Actuator Services',
     description:
-      'Servicing of pneumatic, electric, and hydraulic actuators for reliable valve and equipment operation.',
+      'Servicing of pneumatic, electric, and hydraulic actuators including IQ3 generation and electro-hydraulic units.',
   },
   {
     id: 'pump-compressor',
@@ -37,15 +37,15 @@ export const services: Service[] = [
   },
   {
     id: 'in-situ-machining',
-    title: 'In Situ Machining & Lapping',
+    title: 'Flange Management & In Situ Machining',
     description:
-      'On-site machining and lapping services including flange repairing without removing equipment.',
+      'On-site flange machining, lapping, and repairing using Ventil and Unigrind lapping machines up to 18 inches.',
   },
   {
     id: 'bolt-torquing',
-    title: 'Bolt Torquing, Tensioning & Hot Bolting',
+    title: 'Bolt Torquing & Tensioning',
     description:
-      'Controlled bolting services including torqueing, tensioning, and hot bolting for critical connections.',
+      'Controlled bolting services including torquing and tensioning for critical flange and equipment connections.',
   },
   {
     id: 'n2-testing',
@@ -55,20 +55,32 @@ export const services: Service[] = [
   },
   {
     id: 'field-instrument',
-    title: 'Field Instrument Calibration & Servicing',
+    title: 'Field Instrument Calibration',
     description:
-      'Calibration and servicing of field instruments to ensure accurate measurement and control.',
+      'Calibration and servicing of field instruments for pressure, temperature, and level measurement.',
+  },
+  {
+    id: 'valve-testing-class',
+    title: 'Valve Testing & 3rd Party Class Approval',
+    description:
+      'Valve pressure testing, modification, components machining, and class test arrangements with ABS, DNV, Lloyd\'s, BV, RMRS, and IRS.',
   },
   {
     id: 'valves-management',
-    title: 'Valves Management',
+    title: 'Total Valve Management',
     description:
-      'Comprehensive valves management programs covering inventory, maintenance planning, and lifecycle support.',
+      'Comprehensive valve management programs covering inventory, maintenance planning, and lifecycle support.',
   },
   {
     id: 'training',
-    title: 'Training, Testing & Certification',
+    title: 'Control & Safety Valve Training',
     description:
-      'Technical training, testing, and certification programs for valves, actuators, and field equipment.',
+      'Technical training on fundamental maintenance, testing with standard compliance, and total valve management certification.',
+  },
+  {
+    id: 'commissioning',
+    title: 'On-Site Commissioning',
+    description:
+      'Field commissioning and valve integration services at client facilities across Asia Pacific and the Middle East.',
   },
 ];

@@ -1,14 +1,36 @@
 export const company = {
   name: 'Global Infrastructure Engineering',
   shortName: 'GIE',
-  tagline: 'Engineering solutions for critical infrastructure across Asia and beyond.',
+  tagline: 'Your Reliable Partner in Valve Automation & Mechanical Service',
   description:
-    'Global Infrastructure Engineering provides valve servicing, actuators, pumps, field instrumentation, and training for power, oil & gas, offshore & marine, manufacturing, and process plant industries.',
+    'Established in 2016 with Singapore as headquarters, Global Infrastructure Engineering specializes in valve automation, mechanical services, field instrumentation, and training for oil & gas, offshore, power, petrochemical, and food industries across Asia Pacific.',
   website: 'https://www.giesg.com',
   email: 'jc@giesg.com',
   logo: '/images/logo/gie-logo.png',
   logoAlt: 'Global Infrastructure Engineering logo',
   copyright: `© ${new Date().getFullYear()} Global Infrastructure Engineering Pte Ltd. All rights reserved.`,
+  foundedYear: 2016,
+  headquarters: 'Singapore',
+  aboutIntro: [
+    'Established in 2016 with Singapore as headquarters, Global Infrastructure Engineering has branches in Malaysia, Thailand, and Myanmar. G.I.E. specializes in mechanical services including valves & control, actuators, pumps, valve integration, field instrument calibration (pressure, temperature & level), bolt tensioning and torquing, in-situ flange repairing, and in-situ pressure safety valve repair & testing.',
+    'We provide control & safety valve training covering fundamental maintenance, testing with standard compliance, and total valve management. All services are carried out by personnel with extensive expertise across leading valve manufacturers.',
+    'We serve oil & gas, offshore, power, petrochemical, and food industries across Asia Pacific and beyond.',
+  ],
+  manufacturers: [
+    'Rotork',
+    'Fisher',
+    'Masoneilan',
+    'IMI',
+    'Norgren',
+    'APCI Demark',
+    'Consolidated',
+    'Sarasin',
+    'Crosby (Anderson Greenwood)',
+    'Cameron',
+    'Copes-Vulcan',
+    'Weir Control (Trillion)',
+    'Quam (Italy)',
+  ],
 } as const;
 
 export const navLinks = [

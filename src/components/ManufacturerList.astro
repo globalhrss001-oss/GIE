@@ -1,0 +1,13 @@
+---
+import { company } from '../data/company';
+---
+
+<div class="flex flex-wrap gap-2">
+  {
+    company.manufacturers.map((name) => (
+      <span class="rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gie-navy shadow-sm">
+        {name}
+      </span>
+    ))
+  }
+</div>

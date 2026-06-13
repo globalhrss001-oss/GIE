@@ -1,19 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ServiceCard from '../components/ServiceCard.astro';
+import FacilitiesList from '../components/FacilitiesList.astro';
 import { services } from '../data/services';
 ---
 
 <BaseLayout
   title="Services"
-  description="GIE provides motorized valve overhaul, control valve servicing, safety valve testing, actuators, pumps, in situ machining, bolt torquing, N₂ testing, field instrumentation, valves management, and training."
+  description="GIE valve automation and mechanical services: motorized valve integration, control and safety valve servicing, actuators, field instrumentation, flange management, training, and 3rd party class testing."
 >
   <section class="bg-gie-navy py-14 text-white">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <h1 class="text-3xl font-bold sm:text-4xl">Our Services</h1>
       <p class="mt-3 max-w-2xl text-gray-200">
-        End-to-end engineering services for valves, actuators, and field equipment across critical
-        industries.
+        End-to-end valve automation and mechanical services for critical industrial facilities
+        across Asia Pacific.
       </p>
     </div>
   </section>
@@ -22,6 +23,18 @@ import { services } from '../data/services';
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => <ServiceCard service={service} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gie-gray py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Facilities & Capabilities</h2>
+      <p class="mt-2 text-gie-muted">
+        Mobile test benches, lapping machines, and on-site commissioning equipment.
+      </p>
+      <div class="mt-8">
+        <FacilitiesList />
       </div>
     </div>
   </section>
