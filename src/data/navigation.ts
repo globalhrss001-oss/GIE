@@ -27,7 +27,8 @@ export const mainNavigation: NavItem[] = [
   {
     id: 'about',
     label: 'About Us',
-    matchPaths: ['/about/', '/gallery/', '/offices/', '/industries/'],
+    href: '/about/',
+    matchPaths: ['/about/', '/offices/', '/industries/'],
     columns: [
       {
         heading: 'ABOUT G.I.E.',
@@ -36,7 +37,6 @@ export const mainNavigation: NavItem[] = [
           { label: 'Certifications', href: '/about/#certifications' },
           { label: 'Manufacturer expertise', href: '/about/#manufacturers' },
           { label: 'Our client record', href: '/about/#clients' },
-          { label: 'Gallery', href: '/gallery/' },
         ],
       },
       {
@@ -50,8 +50,15 @@ export const mainNavigation: NavItem[] = [
     ],
   },
   {
+    id: 'gallery',
+    label: 'Gallery',
+    href: '/gallery/',
+    matchPaths: ['/gallery/'],
+  },
+  {
     id: 'services',
     label: 'Services',
+    href: '/services/',
     matchPaths: ['/services/'],
     columns: [
       {
@@ -88,9 +95,9 @@ export const mainNavigation: NavItem[] = [
 export const flatNavLinks = [
   { href: '/', label: 'Home' },
   { href: '/about/', label: 'About' },
+  { href: '/gallery/', label: 'Gallery' },
   { href: '/services/', label: 'Services' },
   { href: '/industries/', label: 'Industries' },
   { href: '/offices/', label: 'Offices' },
-  { href: '/gallery/', label: 'Gallery' },
   { href: '/contact/', label: 'Contact' },
 ] as const;
