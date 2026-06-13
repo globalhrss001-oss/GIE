@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:github": "astro build",
+    "build:cloudflare": "node scripts/build-cloudflare.mjs",
     "preview": "astro preview"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.3.1",
