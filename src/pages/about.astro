@@ -5,8 +5,11 @@ import CertificationBadges from '../components/CertificationBadges.astro';
 import ManufacturerList from '../components/ManufacturerList.astro';
 import ClientList from '../components/ClientList.astro';
 import OfficeCard from '../components/OfficeCard.astro';
+import TeamSection from '../components/TeamSection.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
 import { company } from '../data/company';
 import { offices } from '../data/offices';
+import { workingPhotos } from '../data/sitePhotos';
 ---
 
 <BaseLayout
@@ -28,19 +31,29 @@ import { offices } from '../data/offices';
 
   <section class="py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="mx-auto max-w-3xl">
+      <TeamSection>
         {
-          company.aboutIntro.map((paragraph) => (
-            <p class="mt-4 text-lg leading-relaxed text-gie-text first:mt-0">{paragraph}</p>
+          company.aboutIntro.map((paragraph, i) => (
+            <p class:list={['text-lg leading-relaxed text-gie-text', i > 0 && 'mt-4']}>
+              {paragraph}
+            </p>
           ))
         }
-      </div>
+      </TeamSection>
 
       <div class="mt-16">
         <h2 class="text-2xl font-bold text-gie-navy">Our Certifications</h2>
         <p class="mt-2 text-gie-muted">Quality, safety, and environmental management standards.</p>
         <div class="mt-6">
           <CertificationBadges />
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-gie-navy">Field Operations</h2>
+        <p class="mt-2 text-gie-muted">Our engineers and technicians at work across industrial sites.</p>
+        <div class="mt-6">
+          <PhotoGrid photos={workingPhotos.slice(0, 4)} columns={4} />
         </div>
       </div>
 

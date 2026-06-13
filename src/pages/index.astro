@@ -9,6 +9,8 @@ import { services } from '../data/services';
 import { industries } from '../data/industries';
 import { offices } from '../data/offices';
 import { url } from '../utils/url';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import { featuredPhotos } from '../data/sitePhotos';
 
 const previewServices = services.slice(0, 6);
 ---
@@ -35,6 +37,18 @@ const previewServices = services.slice(0, 6);
           View All Services
         </a>
       </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-10 text-center">
+        <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Our Work in the Field</h2>
+        <p class="mt-2 text-gie-muted">
+          GIE engineers and technicians delivering valve and mechanical services on-site.
+        </p>
+      </div>
+      <PhotoGrid photos={featuredPhotos} columns={3} />
     </div>
   </section>
 

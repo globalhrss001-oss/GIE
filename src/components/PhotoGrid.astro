@@ -1,0 +1,46 @@
+---
+import { asset } from '../utils/url';
+
+interface Photo {
+  src: string;
+  alt: string;
+  title?: string;
+}
+
+interface Props {
+  photos: Photo[];
+  columns?: 2 | 3 | 4;
+}
+
+const { photos, columns = 3 } = Astro.props;
+
+const colClass = {
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-2 lg:grid-cols-3',
+  4: 'sm:grid-cols-2 lg:grid-cols-4',
+}[columns];
+---
+
+<div class:list={['grid gap-4', colClass]}>
+  {
+    photos.map((photo) => (
+      <figure class="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+        <img
+          src={asset(photo.src.startsWith('/') ? photo.src.slice(1) : photo.src)}
+          alt={photo.alt}
+          class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+          width="640"
+          height="480"
+        />
+        {
+          photo.title && (
+            <figcaption class="px-3 py-2 text-center text-sm font-medium text-gie-navy">
+              {photo.title}
+            </figcaption>
+          )
+        }
+      </figure>
+    ))
+  }
+</div>
