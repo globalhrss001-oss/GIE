@@ -66,7 +66,7 @@ export const galleryImages: GalleryImage[] = [
   {
     src: '/images/working/working-evt-testing.png',
     alt: 'GIE technicians performing EVT preventive testing',
-    title: 'EVT (prevent test)',
+    title: 'EVT (Prevent Test)',
     category: 'Field Operations',
     description: 'Electric valve testing and preventive testing on-site.',
   },

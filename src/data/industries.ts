@@ -20,8 +20,8 @@ export const industries: Industry[] = [
     name: 'Oil & Gas',
     description:
       'Specialized servicing for upstream, midstream, and downstream oil and gas operations.',
-    image: '/images/working/working-lapping.jpg',
-    imageAlt: 'Safety valve lapping at an oil and gas plant',
+    image: '/images/working/working-site-2.jpeg',
+    imageAlt: 'GIE team performing valve servicing at an oil and gas plant',
   },
   {
     id: 'offshore',

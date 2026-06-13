@@ -24,7 +24,7 @@ export const workingPhotos: WorkingPhoto[] = [
   {
     src: '/images/working/working-evt-testing.png',
     alt: 'GIE technicians performing EVT preventive testing',
-    title: 'EVT (prevent test)',
+    title: 'EVT (Prevent Test)',
   },
   {
     src: '/images/working/working-site-3.jpeg',
