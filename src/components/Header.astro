@@ -1,11 +1,49 @@
 ---
-import { company, navLinks } from '../data/company';
+import { company } from '../data/company';
+import { mainNavigation } from '../data/navigation';
 import { asset, url } from '../utils/url';
 
 const currentPath = Astro.url.pathname;
+
+function normalizePath(path: string): string {
+  const base = import.meta.env.BASE_URL;
+  if (base !== '/' && path.startsWith(base)) {
+    return path.slice(base.length - 1) || '/';
+  }
+  return path;
+}
+
+const normalizedCurrent = normalizePath(currentPath);
+
+function isHomeActive(): boolean {
+  return (
+    normalizedCurrent === '/' ||
+    normalizedCurrent === '' ||
+    currentPath === url('/') ||
+    currentPath.endsWith('/GIE') ||
+    currentPath.endsWith('/GIE/')
+  );
+}
+
+function isNavItemActive(item: (typeof mainNavigation)[number]): boolean {
+  if (item.href === '/') {
+    return isHomeActive();
+  }
+  return (
+    item.matchPaths?.some((segment) => normalizedCurrent.includes(segment)) ?? false
+  );
+}
+
+function isLinkActive(href: string): boolean {
+  const [pathPart] = href.split('#');
+  if (pathPart === '/') {
+    return isHomeActive();
+  }
+  return normalizedCurrent.includes(pathPart);
+}
 ---
 
-<header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
+<header class="sticky top-0 z-50 border-b border-gray-200 bg-white">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 sm:px-6 sm:py-3">
     <a href={url('/')} class="flex items-center gap-3 sm:gap-4">
       <img
@@ -28,35 +66,93 @@ const currentPath = Astro.url.pathname;
       </span>
     </a>
 
-    <div class="hidden items-center gap-2 lg:flex">
-      <nav class="flex items-center gap-1" aria-label="Main navigation">
-        {
-          navLinks.map((link) => {
-            const href = url(link.href);
-            const isContact = link.href === '/contact/';
-            const isActive =
-              link.href === '/'
-                ? currentPath === url('/') || currentPath === '/GIE/' || currentPath === '/GIE'
-                : currentPath.includes(link.href);
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
+      {
+        mainNavigation.map((item) => {
+          const active = isNavItemActive(item);
+
+          if (item.href) {
             return (
               <a
-                href={href}
+                href={url(item.href)}
                 class:list={[
                   'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                  isContact
-                    ? 'bg-gie-navy font-semibold text-white hover:bg-gie-navy-light'
-                    : isActive
-                      ? 'bg-gie-navy text-white'
-                      : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
+                  active
+                    ? 'text-gie-navy'
+                    : 'text-gie-text hover:text-gie-navy',
                 ]}
               >
-                {link.label}
+                {item.label}
               </a>
             );
-          })
-        }
-      </nav>
-    </div>
+          }
+
+          return (
+            <div class="group/nav relative">
+              <button
+                type="button"
+                class:list={[
+                  'flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  active
+                    ? 'text-gie-navy'
+                    : 'text-gie-text hover:text-gie-navy',
+                ]}
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                {item.label}
+                <svg
+                  class="h-4 w-4 transition-transform duration-200 group-hover/nav:rotate-180 group-focus-within/nav:rotate-180"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              <div class="invisible absolute top-full left-1/2 z-50 w-screen max-w-none -translate-x-1/2 border-t border-gray-200 bg-white opacity-0 shadow-lg transition-all duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100">
+                <div class="mx-auto grid max-w-6xl grid-cols-2 gap-12 px-6 py-8 sm:px-8">
+                  {
+                    item.columns?.map((column, colIndex) => (
+                      <div
+                        class:list={[
+                          colIndex === 1 && 'border-l border-gray-200 pl-12',
+                        ]}
+                      >
+                        <p class="text-xs font-semibold tracking-wider text-gie-navy-light uppercase">
+                          {column.heading}
+                        </p>
+                        <ul class="mt-4 space-y-2.5">
+                          {
+                            column.links.map((link) => (
+                              <li>
+                                <a
+                                  href={url(link.href)}
+                                  class:list={[
+                                    'text-sm transition-colors hover:text-gie-navy',
+                                    isLinkActive(link.href)
+                                      ? 'font-medium text-gie-navy'
+                                      : 'text-gie-text',
+                                  ]}
+                                >
+                                  {link.label}
+                                </a>
+                              </li>
+                            ))
+                          }
+                        </ul>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </nav>
 
     <button
       type="button"
@@ -77,22 +173,65 @@ const currentPath = Astro.url.pathname;
     class="hidden border-t border-gray-200 bg-white lg:hidden"
     aria-label="Mobile navigation"
   >
-    <div class="mx-auto flex max-w-6xl flex-col px-4 py-2 sm:px-6">
+    <div class="mx-auto max-w-6xl px-4 py-3 sm:px-6">
       {
-        navLinks.map((link) => {
-          const isContact = link.href === '/contact/';
+        mainNavigation.map((item) => {
+          if (item.href) {
+            return (
+              <a
+                href={url(item.href)}
+                class:list={[
+                  'block rounded-md px-3 py-3 text-sm font-medium',
+                  isNavItemActive(item)
+                    ? 'text-gie-navy'
+                    : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
+                ]}
+              >
+                {item.label}
+              </a>
+            );
+          }
+
           return (
-            <a
-              href={url(link.href)}
-              class:list={[
-                'rounded-md px-3 py-3 text-sm font-medium',
-                isContact
-                  ? 'bg-gie-navy text-center font-semibold text-white'
-                  : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
-              ]}
-            >
-              {link.label}
-            </a>
+            <details class="group/mobile border-b border-gray-100 py-1 last:border-0">
+              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-3 py-3 text-sm font-medium text-gie-text marker:content-none hover:bg-gie-gray hover:text-gie-navy [&::-webkit-details-marker]:hidden">
+                {item.label}
+                <svg
+                  class="h-4 w-4 transition-transform group-open/mobile:rotate-180"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div class="space-y-4 pb-3 pl-3">
+                {
+                  item.columns?.map((column) => (
+                    <div>
+                      <p class="px-3 text-xs font-semibold tracking-wider text-gie-navy-light uppercase">
+                        {column.heading}
+                      </p>
+                      <ul class="mt-2 space-y-1">
+                        {
+                          column.links.map((link) => (
+                            <li>
+                              <a
+                                href={url(link.href)}
+                                class="block rounded-md px-3 py-2 text-sm text-gie-text hover:bg-gie-gray hover:text-gie-navy"
+                              >
+                                {link.label}
+                              </a>
+                            </li>
+                          ))
+                        }
+                      </ul>
+                    </div>
+                  ))
+                }
+              </div>
+            </details>
           );
         })
       }
