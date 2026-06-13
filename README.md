@@ -2,7 +2,9 @@
 
 Public company website for **Global Infrastructure Engineering** — built with [Astro](https://astro.build) and deployed to GitHub Pages.
 
-**Live site:** [https://antthein.github.io/GIE/](https://antthein.github.io/GIE/)
+**Live site:** [https://globalhrss001-oss.github.io/GIE/](https://globalhrss001-oss.github.io/GIE/)
+
+**Repository:** [https://github.com/globalhrss001-oss/GIE](https://github.com/globalhrss001-oss/GIE)
 
 ## Local Development
 

@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://antthein.github.io',
+  site: 'https://globalhrss001-oss.github.io',
   base: '/GIE',
   integrations: [sitemap()],
   vite: {

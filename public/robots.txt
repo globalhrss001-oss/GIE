@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://antthein.github.io/GIE/sitemap-index.xml
+Sitemap: https://globalhrss001-oss.github.io/GIE/sitemap-index.xml
