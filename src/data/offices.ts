@@ -1,13 +1,8 @@
-export interface Workshop {
-  name: string;
-  address: string[];
-  phone?: string;
-}
-
 export interface Office {
   id: string;
   country: string;
   entity: string;
+  enabled?: boolean;
   contactPerson?: string;
   title?: string;
   address?: string[];
@@ -18,11 +13,18 @@ export interface Office {
   workshop?: Workshop;
 }
 
+export interface Workshop {
+  name: string;
+  address: string[];
+  phone?: string;
+}
+
 export const offices: Office[] = [
   {
     id: 'singapore',
     country: 'Singapore',
     entity: 'GLOBAL INFRASTRUCTURE ENGINEERING PTE LTD',
+    enabled: true,
     contactPerson: 'Josephine Chin',
     title: 'Director',
     address: [
@@ -39,16 +41,19 @@ export const offices: Office[] = [
     id: 'malaysia',
     country: 'Malaysia',
     entity: 'Global Alliance Engineering Sdn Bhd',
+    enabled: false,
   },
   {
     id: 'thailand',
     country: 'Thailand',
     entity: 'Global Infrastructure Engineering (Thailand)',
+    enabled: false,
   },
   {
     id: 'myanmar',
     country: 'Myanmar',
     entity: 'Global Infrastructure Engineering Co. Ltd',
+    enabled: true,
     address: [
       'No. SH001 Thitsar Road',
       '8 Quarter, South Okklarpa Township',
@@ -67,5 +72,8 @@ export const offices: Office[] = [
     },
   },
 ];
+
+/** Offices shown on the website (MY & TH hidden until contact details are ready) */
+export const activeOffices = offices.filter((office) => office.enabled !== false);
 
 export const primaryOffice = offices[0];

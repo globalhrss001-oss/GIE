@@ -3,28 +3,30 @@ export interface ClientGroup {
   clients: string[];
 }
 
+/** Client list aligned with GIE company profile — grouped by region */
 export const clientGroups: ClientGroup[] = [
   {
     country: 'Singapore',
     clients: [
-      'GN Thermal Power Plant',
       'Jurong Engineering Limited',
       'Veolia ES Hazardous Waste Management',
       'Va Tech Wabag (Water Plant)',
-      'Electromech Water',
+      'Electromech Water (Water)',
       'Waterchem (Life Science)',
+      'PT McDermott',
       'AGS Flow Solution Pte Ltd',
-      'PEC Process Systems',
-      'Drydocks FPSO',
-      'POSCO DAEWOO',
-      'Sembcorp Power Plant',
-      'JFE Waste Energy Plant',
-      'GE (Fieldcare)',
     ],
+  },
+  {
+    country: 'Philippines',
+    clients: ['GN Thermal Power Plant'],
   },
   {
     country: 'Myanmar',
     clients: [
+      'POSCO DAEWOO',
+      'Sembcorp Power Plant',
+      'JFE Waste Energy Plant',
       'Heineken Myanmar Limited',
       'Daw Nyein Gas Terminal MOGE',
       'Power China Thakada Power Plant',
@@ -34,24 +36,21 @@ export const clientGroups: ClientGroup[] = [
       'Denko',
       'Max Energy',
       'Thatone Power',
+      'GE (Fieldcare)',
       'Jurong Engineering (Myanmar)',
       'ASRU Pangpat',
     ],
   },
   {
-    country: 'Philippines',
-    clients: ['Rojana Power Plant 3', 'Nhi Son Power Plant'],
-  },
-  {
     country: 'Vietnam',
-    clients: ['AES Power Plant', 'Muon Doung Power'],
+    clients: ['Nhi Son Power Plant', 'AES Power Plant Muon Doung Power'],
   },
   {
     country: 'Thailand',
-    clients: ['PT McDermott'],
+    clients: ['Rojana Power Plant 3'],
   },
   {
     country: 'Dubai',
-    clients: ['Interlog Valve Commissioning'],
+    clients: ['PEC Process Systems', 'Drydocks FPSO'],
   },
 ];

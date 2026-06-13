@@ -1,0 +1,61 @@
+---
+import { clientGroups } from '../data/clients';
+import LogoMark from './LogoMark.astro';
+import { asset } from '../utils/url';
+---
+
+<section class="overflow-hidden rounded-xl border border-gray-200 shadow-lg">
+  <div class="relative overflow-hidden bg-gie-navy px-6 py-8 sm:px-10 sm:py-10">
+    <img
+      src={asset('images/world-map.svg')}
+      alt=""
+      class="pointer-events-none absolute right-0 top-0 h-full w-1/2 max-w-lg object-contain object-right opacity-20 sm:opacity-25"
+      aria-hidden="true"
+    />
+    <div class="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center gap-4">
+        <LogoMark size="sm" onDark />
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-widest text-gray-300">
+            Global Infrastructure Engineering
+          </p>
+          <h2 class="mt-1 text-2xl font-bold uppercase tracking-wide text-white sm:text-3xl">
+            Company Overview
+          </h2>
+        </div>
+      </div>
+      <p class="text-sm font-semibold uppercase tracking-wider text-gray-300 sm:text-right">
+        Asia Pacific &amp; Beyond
+      </p>
+    </div>
+  </div>
+
+  <!-- Client grid -->
+  <div class="relative bg-white px-6 py-8 sm:px-10 sm:py-10">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        clientGroups.map((group) => (
+          <div class="rounded-lg border border-gray-100 bg-gie-gray/40 p-5">
+            <h3 class="border-b border-gie-navy/20 pb-2 text-base font-bold uppercase tracking-wide text-gie-navy">
+              {group.country}
+            </h3>
+            <ul class="mt-3 space-y-1.5">
+              {
+                group.clients.map((client) => (
+                  <li class="flex items-start gap-2 text-sm leading-snug text-gie-text">
+                    <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gie-navy"></span>
+                    {client}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-right text-lg font-bold uppercase tracking-wide text-gie-navy sm:text-xl">
+      Customer Record
+    </p>
+  </div>
+</section>

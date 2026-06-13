@@ -3,12 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LogoMark from '../components/LogoMark.astro';
 import CertificationBadges from '../components/CertificationBadges.astro';
 import ManufacturerList from '../components/ManufacturerList.astro';
-import ClientList from '../components/ClientList.astro';
+import ClientOverview from '../components/ClientOverview.astro';
 import OfficeCard from '../components/OfficeCard.astro';
 import TeamSection from '../components/TeamSection.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
 import { company } from '../data/company';
-import { offices } from '../data/offices';
+import { activeOffices } from '../data/offices';
 import { workingPhotos } from '../data/sitePhotos';
 ---
 
@@ -69,22 +69,16 @@ import { workingPhotos } from '../data/sitePhotos';
       </div>
 
       <div class="mt-16">
-        <h2 class="text-2xl font-bold text-gie-navy">Client References</h2>
-        <p class="mt-2 text-gie-muted">
-          Trusted by leading companies across Singapore, Myanmar, and the Asia Pacific region.
-        </p>
-        <div class="mt-6">
-          <ClientList />
-        </div>
+        <ClientOverview />
       </div>
 
       <div class="mt-16">
         <h2 class="text-2xl font-bold text-gie-navy">Regional Offices</h2>
         <p class="mt-2 text-gie-muted">
-          Branches in Malaysia, Thailand, and Myanmar with headquarters in Singapore.
+          Headquarters in Singapore with branch operations in Myanmar.
         </p>
-        <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {offices.map((office) => <OfficeCard office={office} />)}
+        <div class="mt-6 grid gap-6 sm:grid-cols-2">
+          {activeOffices.map((office) => <OfficeCard office={office} />)}
         </div>
       </div>
     </div>
