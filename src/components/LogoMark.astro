@@ -3,7 +3,7 @@ import { company } from '../data/company';
 import { asset } from '../utils/url';
 
 interface Props {
-  size?: 'xs' | 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   onDark?: boolean;
   class?: string;
 }
@@ -15,12 +15,13 @@ const sizes = {
   sm: 'h-10 max-w-[80px]',
   md: 'h-14 max-w-[120px]',
   lg: 'h-20 max-w-[180px]',
+  xl: 'h-24 max-w-[220px] sm:h-28 sm:max-w-[260px]',
 };
 ---
 
 {
   onDark ? (
-    <span class:list={['inline-block rounded-lg bg-white p-2 shadow-sm', className]}>
+    <span class:list={['inline-block rounded-lg bg-white p-2.5 shadow-sm sm:p-3', className]}>
       <img
         src={asset('images/logo/gie-logo.png')}
         alt={company.logoAlt}

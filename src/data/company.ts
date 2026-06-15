@@ -1,7 +1,7 @@
 export const company = {
   name: 'Global Infrastructure Engineering',
   shortName: 'GIE',
-  tagline: 'Your Reliable Partner in Valve Automation & Mechanical Service',
+  tagline: 'Valve Specialist & Mechanical Service',
   description:
     'Established in 2016 with Singapore as headquarters, Global Infrastructure Engineering specializes in valve automation, mechanical services, field instrumentation, and training for oil & gas, offshore, power, petrochemical, and food industries across Asia Pacific.',
   website: 'https://www.giesg.com',
