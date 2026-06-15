@@ -1,19 +1,32 @@
 ---
 import { company } from '../data/company';
 import { industriesStrip } from '../data/industries';
+import { heroSlides } from '../data/sitePhotos';
 import { asset, url } from '../utils/url';
 import LogoMark from './LogoMark.astro';
+
+const slideInterval = 5;
+const totalDuration = heroSlides.length * slideInterval;
 ---
 
 <section class="relative overflow-hidden bg-gie-navy text-white">
-  <div class="absolute inset-0 opacity-10">
-    <img
-      src={asset('images/working/working-site-1.jpeg')}
-      alt=""
-      class="h-full w-full object-cover"
-      aria-hidden="true"
-    />
+  <div class="absolute inset-0" aria-hidden="true">
+    {
+      heroSlides.map((photo, index) => (
+        <img
+          src={asset(photo.src.replace(/^\//, ''))}
+          alt=""
+          class="hero-bg-slide absolute inset-0 h-full w-full object-cover"
+          style={`animation-delay: ${-index * slideInterval}s`}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchpriority={index === 0 ? 'high' : 'auto'}
+        />
+      ))
+    }
+    <div class="absolute inset-0 bg-gie-navy/75"></div>
   </div>
+
   <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
     <div class="max-w-3xl">
       <div class="mb-6">
@@ -42,9 +55,53 @@ import LogoMark from './LogoMark.astro';
       </div>
     </div>
   </div>
+
   <div class="relative border-t border-white/10 bg-gie-navy-light/80">
     <p class="mx-auto max-w-6xl px-4 py-3 text-center text-xs font-semibold tracking-wide text-gray-300 uppercase sm:px-6 sm:text-sm">
       {industriesStrip}
     </p>
   </div>
 </section>
+
+<style define:vars={{ totalDuration: `${totalDuration}s` }}>
+  @keyframes hero-bg-fade {
+    0% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    3% {
+      opacity: 1;
+    }
+    17% {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+    20% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .hero-bg-slide {
+    animation: hero-bg-fade var(--totalDuration) infinite;
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-slide {
+      animation: none;
+    }
+
+    .hero-bg-slide:first-child {
+      opacity: 1;
+      transform: none;
+    }
+
+    .hero-bg-slide:not(:first-child) {
+      display: none;
+    }
+  }
+</style>

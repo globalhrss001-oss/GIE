@@ -60,3 +60,12 @@ export const workingPhotos: WorkingPhoto[] = [
 
 /** Featured photos for homepage showcase */
 export const featuredPhotos = workingPhotos.slice(0, 3);
+
+/** Hero background slideshow — field work photos only */
+export const heroSlides: Pick<WorkingPhoto, 'src' | 'alt'>[] = [
+  workingPhotos[0],
+  workingPhotos[1],
+  workingPhotos[2],
+  workingPhotos[4],
+  workingPhotos[6],
+].map(({ src, alt }) => ({ src, alt }));

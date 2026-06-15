@@ -1,0 +1,55 @@
+---
+import type { Industry } from '../data/industries';
+
+interface Props {
+  industries: Industry[];
+  compact?: boolean;
+}
+
+const { industries, compact = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    'grid gap-4',
+    compact ? 'sm:grid-cols-2 lg:grid-cols-3' : 'sm:grid-cols-2',
+  ]}
+>
+  {
+    industries.map((industry, index) => (
+      <article
+        id={industry.id}
+        class:list={[
+          'group relative scroll-mt-24 overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-gray-100 transition-shadow hover:shadow-md',
+          compact ? 'border-l-[3px] border-gie-navy p-4 sm:p-5' : 'border-l-4 border-gie-navy p-5 sm:p-6',
+        ]}
+      >
+        <span
+          class:list={[
+            'pointer-events-none absolute font-bold tabular-nums text-gie-navy/10 transition-colors group-hover:text-gie-navy/15',
+            compact ? 'right-3 top-3 text-2xl' : 'right-4 top-4 text-4xl',
+          ]}
+          aria-hidden="true"
+        >
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <h3
+          class:list={[
+            'relative font-bold text-gie-navy',
+            compact ? 'pr-10 text-base sm:text-lg' : 'pr-12 text-lg sm:text-xl',
+          ]}
+        >
+          {industry.name}
+        </h3>
+        <p
+          class:list={[
+            'relative mt-2 leading-relaxed text-gie-muted',
+            compact ? 'text-sm' : 'text-sm sm:text-base',
+          ]}
+        >
+          {industry.description}
+        </p>
+      </article>
+    ))
+  }
+</div>

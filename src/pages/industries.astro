@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import IndustryCard from '../components/IndustryCard.astro';
+import IndustryList from '../components/IndustryList.astro';
 import { industries } from '../data/industries';
 ---
 
 <BaseLayout
   title="Industries"
-  description="GIE serves power, oil & gas, offshore, petrochemical, and food industries across Singapore, Myanmar, and globally."
+  description="GIE serves power, oil & gas, offshore, petrochemical, food & beverage, water treatment, pharmaceutical, and more across Asia Pacific."
 >
   <section class="bg-gie-navy py-10 text-white">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
@@ -15,14 +15,15 @@ import { industries } from '../data/industries';
         Valve automation and mechanical services for critical sectors across Asia Pacific and
         beyond.
       </p>
+      <p class="mt-4 text-xs font-semibold uppercase tracking-wider text-gray-300 sm:text-sm">
+        {industries.length} sectors
+      </p>
     </div>
   </section>
 
   <section class="py-12 sm:py-14">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="grid gap-5 sm:grid-cols-2 lg:gap-6">
-        {industries.map((industry) => <IndustryCard industry={industry} />)}
-      </div>
+      <IndustryList industries={industries} />
     </div>
   </section>
 </BaseLayout>

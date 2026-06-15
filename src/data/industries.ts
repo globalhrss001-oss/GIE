@@ -2,8 +2,6 @@ export interface Industry {
   id: string;
   name: string;
   description: string;
-  image: string;
-  imageAlt: string;
 }
 
 export const industries: Industry[] = [
@@ -12,40 +10,42 @@ export const industries: Industry[] = [
     name: 'Power',
     description:
       'Valve and instrumentation services for power generation plants, thermal facilities, and utilities.',
-    image: '/images/working/working-safety-valve.jpg',
-    imageAlt: 'Safety valve overhaul for power generation facilities',
   },
   {
     id: 'oil-gas',
     name: 'Oil & Gas',
     description:
       'Specialized servicing for upstream, midstream, and downstream oil and gas operations.',
-    image: '/images/working/working-site-2.jpeg',
-    imageAlt: 'GIE team performing valve servicing at an oil and gas plant',
   },
   {
     id: 'offshore',
     name: 'Offshore',
     description:
       'Field services and equipment support for offshore platforms, FPSO, and marine installations.',
-    image: '/images/working/working-recondition.jpg',
-    imageAlt: 'In situ valve reconditioning at an industrial site',
   },
   {
     id: 'petrochemical',
     name: 'Petrochemical',
     description:
       'Valve automation and mechanical services for petrochemical and process plant operations.',
-    image: '/images/working/working-testing.jpg',
-    imageAlt: 'Pilot valve testing at a process plant',
   },
   {
     id: 'food',
     name: 'Food & Beverage',
     description:
       'Instrumentation calibration and valve servicing for food and beverage production facilities.',
-    image: '/images/working/working-training.jpg',
-    imageAlt: 'GIE valve training and calibration for production facilities',
+  },
+  {
+    id: 'water-treatment',
+    name: 'Water Treatment',
+    description:
+      'Valve and instrumentation support for water treatment plants, desalination, and municipal water systems.',
+  },
+  {
+    id: 'pharmaceutical',
+    name: 'Pharmaceutical',
+    description:
+      'Calibration and valve servicing for pharmaceutical and life science manufacturing facilities.',
   },
 ];
 
