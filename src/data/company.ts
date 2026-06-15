@@ -29,7 +29,6 @@ export const company = {
     'Cameron',
     'Copes-Vulcan',
     'Weir Control (Trillion)',
-    'Quam (Italy)',
   ],
 } as const;
 
