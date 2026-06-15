@@ -13,6 +13,11 @@ export const company = {
   headquarters: 'Singapore',
   companyProfile: '/downloads/gie-company-profile.pdf',
   companyProfileLabel: 'Download Company Profile',
+  primaryContact: {
+    name: 'Josephine Chin',
+    email: 'jc@giesg.com',
+    mobile: '(65) 9062 2272',
+  },
   aboutIntro: [
     'Established in 2016 with Singapore as headquarters, Global Infrastructure Engineering has branches in Malaysia, Thailand, and Myanmar. G.I.E. specializes in mechanical services including valves & control, actuators, pumps, valve integration, field instrument calibration (pressure, temperature & level), bolt tensioning and torquing, in-situ flange repairing, and in-situ pressure safety valve repair & testing.',
     'We provide control & safety valve training covering fundamental maintenance, testing with standard compliance, and total valve management. All services are carried out by personnel with extensive expertise across leading valve manufacturers.',

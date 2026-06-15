@@ -4,6 +4,10 @@ import ContactForm from '../components/ContactForm.astro';
 import OfficeCard from '../components/OfficeCard.astro';
 import PageBanner from '../components/PageBanner.astro';
 import { activeOffices } from '../data/offices';
+import { company } from '../data/company';
+
+const { primaryContact } = company;
+const mobileHref = `tel:${primaryContact.mobile.replace(/[^\d+]/g, '')}`;
 ---
 
 <BaseLayout
@@ -14,7 +18,21 @@ import { activeOffices } from '../data/offices';
     title="Contact Us"
     description="Reach out to our team for engineering services across Singapore, Malaysia, Myanmar, and beyond."
     image="images/working/working-site-3.jpeg"
-  />
+  >
+    <div class="mt-5 border-t border-white/20 pt-5">
+      <p class="text-xs font-semibold tracking-wider text-gray-300 uppercase">Primary contact</p>
+      <p class="mt-2 text-sm font-semibold text-white">{primaryContact.name}</p>
+      <p class="mt-1 text-sm text-gray-200">
+        <a href={`mailto:${primaryContact.email}`} class="hover:text-white hover:underline">
+          {primaryContact.email}
+        </a>
+        <span class="mx-2 text-gray-400" aria-hidden="true">·</span>
+        <a href={mobileHref} class="hover:text-white hover:underline">
+          {primaryContact.mobile}
+        </a>
+      </p>
+    </div>
+  </PageBanner>
 
   <section class="bg-gie-gray py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
