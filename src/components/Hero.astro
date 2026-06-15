@@ -22,10 +22,7 @@ import LogoMark from './LogoMark.astro';
             <img
               src={asset(photo.src.replace(/^\//, ''))}
               alt=""
-              class:list={[
-                'h-full w-full',
-                photo.contain ? 'object-contain object-center bg-gie-navy' : 'object-cover',
-              ]}
+              class="hero-bg-slide h-full w-full object-cover"
               loading={index === 0 ? 'eager' : 'lazy'}
               decoding="async"
               fetchpriority={index === 0 ? 'high' : 'auto'}
@@ -36,9 +33,10 @@ import LogoMark from './LogoMark.astro';
     </div>
 
     <div
-      class="pointer-events-none absolute inset-0 bg-gradient-to-r from-gie-navy/90 via-gie-navy/65 to-gie-navy/35"
+      class="pointer-events-none absolute inset-0 bg-gradient-to-r from-gie-navy/95 via-gie-navy/80 to-gie-navy/55"
       aria-hidden="true"
     />
+    <div class="pointer-events-none absolute inset-0 bg-gie-navy/25" aria-hidden="true" />
 
     <div class="relative z-10 flex min-h-[28rem] items-end sm:min-h-[32rem] lg:min-h-[36rem]">
       <div class="mx-auto w-full max-w-6xl px-4 pb-14 pt-20 sm:px-6 sm:pb-16 lg:pb-20">
@@ -119,6 +117,11 @@ import LogoMark from './LogoMark.astro';
   .hero-slide.is-active {
     opacity: 1;
     z-index: 1;
+  }
+
+  .hero-slide img {
+    filter: blur(4px);
+    transform: scale(1.06);
   }
 
   .hero-nav {

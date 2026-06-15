@@ -5,7 +5,9 @@ import FacilitiesList from '../components/FacilitiesList.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
 import { services } from '../data/services';
 import { workingPhotos } from '../data/sitePhotos';
-import { asset } from '../utils/url';
+import { asset, url } from '../utils/url';
+
+const actionPhotos = workingPhotos.slice(0, 6);
 ---
 
 <BaseLayout
@@ -13,14 +15,15 @@ import { asset } from '../utils/url';
   description="GIE valve automation and mechanical services: motorized valve integration, control and safety valve servicing, actuators, field instrumentation, flange management, training, and 3rd party class testing."
 >
   <section class="relative overflow-hidden bg-gie-navy py-14 text-white">
-    <div class="absolute inset-0 opacity-20">
+    <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
       <img
-        src={asset('images/working/working-evt-testing.png')}
+        src={asset('images/working/working-site-1.jpeg')}
         alt=""
-        class="h-full w-full object-contain object-center"
+        class="h-full w-full scale-105 object-cover object-center blur-sm"
         aria-hidden="true"
       />
     </div>
+    <div class="absolute inset-0 bg-gie-navy/80" aria-hidden="true" />
     <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
       <h1 class="text-3xl font-bold sm:text-4xl">Our Services</h1>
       <p class="mt-3 max-w-2xl text-gray-200">
@@ -43,7 +46,15 @@ import { asset } from '../utils/url';
       <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Service in Action</h2>
       <p class="mt-2 text-gie-muted">On-site valve servicing, testing, and training by our field teams.</p>
       <div class="mt-8">
-        <PhotoGrid photos={workingPhotos} columns={4} />
+        <PhotoGrid photos={actionPhotos} columns={3} />
+      </div>
+      <div class="mt-8 text-center">
+        <a
+          href={url('/gallery/')}
+          class="inline-block rounded-md border border-gie-navy px-6 py-2.5 text-sm font-semibold text-gie-navy transition-colors hover:bg-gie-navy hover:text-white"
+        >
+          View Full Gallery
+        </a>
       </div>
     </div>
   </section>

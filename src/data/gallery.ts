@@ -4,8 +4,6 @@ export interface GalleryImage {
   title: string;
   category: string;
   description: string;
-  /** Show full image without cropping (object-contain) */
-  contain?: boolean;
 }
 
 export const galleryImages: GalleryImage[] = [
@@ -71,7 +69,6 @@ export const galleryImages: GalleryImage[] = [
     title: 'EVT (Prevent Test)',
     category: 'Field Operations',
     description: 'Electric valve testing and preventive testing on-site.',
-    contain: true,
   },
   {
     src: '/images/working/working-site-3.jpeg',

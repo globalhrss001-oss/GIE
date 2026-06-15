@@ -13,8 +13,6 @@ export interface WorkingPhoto {
   src: string;
   alt: string;
   title: string;
-  /** Show full image without cropping (object-contain) */
-  contain?: boolean;
 }
 
 export const workingPhotos: WorkingPhoto[] = [
@@ -27,7 +25,6 @@ export const workingPhotos: WorkingPhoto[] = [
     src: '/images/working/working-evt-testing.png',
     alt: 'GIE technicians performing EVT preventive testing',
     title: 'EVT (Prevent Test)',
-    contain: true,
   },
   {
     src: '/images/working/working-site-3.jpeg',
@@ -65,10 +62,10 @@ export const workingPhotos: WorkingPhoto[] = [
 export const featuredPhotos = workingPhotos.slice(0, 3);
 
 /** Hero background slideshow — field work photos only */
-export const heroSlides: Pick<WorkingPhoto, 'src' | 'alt' | 'contain'>[] = [
+export const heroSlides: Pick<WorkingPhoto, 'src' | 'alt'>[] = [
   workingPhotos[0],
   workingPhotos[1],
   workingPhotos[2],
   workingPhotos[4],
   workingPhotos[6],
-].map(({ src, alt, contain }) => ({ src, alt, contain }));
+].map(({ src, alt }) => ({ src, alt }));
