@@ -3,13 +3,13 @@ import { services } from '../data/services';
 import { url } from '../utils/url';
 ---
 
-<ul class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white shadow-sm">
+<ul class="service-showcase-grid grid gap-3 sm:grid-cols-2 sm:gap-4">
   {
     services.map((service) => (
-      <li class="px-5 py-3.5 sm:px-6 sm:py-4">
+      <li>
         <a
           href={url(`/services/#${service.id}`)}
-          class="font-bold text-gie-navy transition-colors hover:text-gie-navy-light"
+          class="block h-full rounded-lg border border-gray-200 bg-white px-5 py-3.5 text-sm font-bold leading-snug text-gie-navy shadow-sm transition hover:border-gie-navy/25 hover:bg-gie-gray sm:px-6 sm:py-4 sm:text-base"
         >
           {service.title}
         </a>
@@ -26,3 +26,13 @@ import { url } from '../utils/url';
     View All Services
   </a>
 </div>
+
+<style>
+  @media (min-width: 640px) {
+    .service-showcase-grid > :last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      width: calc(50% - 0.5rem);
+      justify-self: center;
+    }
+  }
+</style>
