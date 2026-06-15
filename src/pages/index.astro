@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import ServiceGrid from '../components/ServiceGrid.astro';
+import ServiceShowcase from '../components/ServiceShowcase.astro';
 import IndustryShowcase from '../components/IndustryShowcase.astro';
 import { company } from '../data/company';
-import { services } from '../data/services';
 ---
 
 <BaseLayout title={company.name} description={company.description}>
@@ -33,7 +32,7 @@ import { services } from '../data/services';
           Valve automation and mechanical services for valves, actuators, and field instrumentation.
         </p>
       </div>
-      <ServiceGrid services={services} />
+      <ServiceShowcase />
     </div>
   </section>
 

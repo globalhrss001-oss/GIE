@@ -1,0 +1,28 @@
+---
+import { services } from '../data/services';
+import { url } from '../utils/url';
+---
+
+<ul class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white shadow-sm">
+  {
+    services.map((service) => (
+      <li class="px-5 py-3.5 sm:px-6 sm:py-4">
+        <a
+          href={url(`/services/#${service.id}`)}
+          class="font-bold text-gie-navy transition-colors hover:text-gie-navy-light"
+        >
+          {service.title}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<div class="mt-8 text-center">
+  <a
+    href={url('/services/')}
+    class="inline-block rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-gie-navy-light"
+  >
+    View All Services
+  </a>
+</div>
