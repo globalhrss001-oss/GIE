@@ -3,13 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import IndustryList from '../components/IndustryList.astro';
-import OfficeCard from '../components/OfficeCard.astro';
 import { company } from '../data/company';
 import { services } from '../data/services';
 import { industries } from '../data/industries';
-import { activeOffices } from '../data/offices';
-import { url } from '../utils/url';
-
 import { url } from '../utils/url';
 
 const previewIndustries = industries.slice(0, 6);
@@ -45,28 +41,6 @@ const previewIndustries = industries.slice(0, 6);
           class="inline-block rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-gie-navy-light"
         >
           View All Industries
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-gie-gray py-16">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="mb-10 text-center">
-        <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Regional Presence</h2>
-        <p class="mt-2 text-gie-muted">
-          Serving clients in Singapore, Malaysia, Myanmar, and across Asia Pacific.
-        </p>
-      </div>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {activeOffices.map((office) => <OfficeCard office={office} />)}
-      </div>
-      <div class="mt-10 text-center">
-        <a
-          href={url('/contact/')}
-          class="inline-block rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-gie-navy-light"
-        >
-          Contact Us
         </a>
       </div>
     </div>

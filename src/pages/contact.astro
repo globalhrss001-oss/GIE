@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
+import OfficeCard from '../components/OfficeCard.astro';
 import LogoMark from '../components/LogoMark.astro';
-import { primaryOffice } from '../data/offices';
+import { activeOffices } from '../data/offices';
 ---
 
 <BaseLayout
@@ -23,65 +24,24 @@ import { primaryOffice } from '../data/offices';
   </section>
 
   <section class="py-16">
-    <div class="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-2">
-      <div>
-        <h2 class="text-xl font-bold text-gie-navy">Singapore Office</h2>
-        <p class="mt-1 text-sm font-semibold text-gie-muted">{primaryOffice.entity}</p>
-        {
-          primaryOffice.contactPerson && (
-            <p class="mt-3 text-sm text-gie-text">
-              {primaryOffice.contactPerson}
-              {primaryOffice.title && ` · ${primaryOffice.title}`}
-            </p>
-          )
-        }
-        <address class="mt-4 space-y-1 text-sm not-italic text-gie-text">
-          {
-            primaryOffice.address?.map((line) => (
-              <span class="block">{line}</span>
-            ))
-          }
-          {
-            primaryOffice.phone && (
-              <span class="block pt-2">
-                Tel:{' '}
-                <a href={`tel:${primaryOffice.phone.replace(/\s/g, '')}`} class="text-gie-navy hover:underline">
-                  {primaryOffice.phone}
-                </a>
-              </span>
-            )
-          }
-          {
-            primaryOffice.fax && (
-              <span class="block">Fax: {primaryOffice.fax}</span>
-            )
-          }
-          {
-            primaryOffice.mobile && (
-              <span class="block">
-                Mobile:{' '}
-                <a href={`tel:${primaryOffice.mobile.replace(/[^\d+]/g, '')}`} class="text-gie-navy hover:underline">
-                  {primaryOffice.mobile}
-                </a>
-              </span>
-            )
-          }
-          {
-            primaryOffice.email && (
-              <span class="block">
-                Email:{' '}
-                <a href={`mailto:${primaryOffice.email}`} class="text-gie-navy hover:underline">
-                  {primaryOffice.email}
-                </a>
-              </span>
-            )
-          }
-        </address>
-      </div>
-
-      <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
         <h2 class="mb-6 text-xl font-bold text-gie-navy">Send a Message</h2>
         <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gie-gray py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-10 text-center">
+        <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Regional Presence</h2>
+        <p class="mt-2 text-gie-muted">
+          Serving clients in Singapore, Malaysia, Myanmar, and across Asia Pacific.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {activeOffices.map((office) => <OfficeCard office={office} />)}
       </div>
     </div>
   </section>

@@ -126,6 +126,7 @@ const WEB3FORMS_ACCESS_KEY = '2a35efb6-ac91-4ef3-989d-f8b9eef31533';
   <button
     type="submit"
     id="contact-submit"
+    disabled
     class="rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gie-navy-light disabled:cursor-not-allowed disabled:opacity-60"
   >
     Send Message
@@ -137,6 +138,15 @@ const WEB3FORMS_ACCESS_KEY = '2a35efb6-ac91-4ef3-989d-f8b9eef31533';
   const success = document.getElementById('form-success');
   const error = document.getElementById('form-error');
   const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement | null;
+
+  const updateSubmitState = () => {
+    if (!form || !submitBtn) return;
+    submitBtn.disabled = !form.checkValidity();
+  };
+
+  form?.addEventListener('input', updateSubmitState);
+  form?.addEventListener('change', updateSubmitState);
+  updateSubmitState();
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -165,6 +175,7 @@ const WEB3FORMS_ACCESS_KEY = '2a35efb6-ac91-4ef3-989d-f8b9eef31533';
 
       if (response.ok && result.success) {
         form.reset();
+        updateSubmitState();
         success?.classList.remove('hidden');
         success?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } else {
@@ -176,8 +187,8 @@ const WEB3FORMS_ACCESS_KEY = '2a35efb6-ac91-4ef3-989d-f8b9eef31533';
       error?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } finally {
       if (submitBtn) {
-        submitBtn.disabled = false;
         submitBtn.textContent = originalLabel;
+        updateSubmitState();
       }
     }
   });
