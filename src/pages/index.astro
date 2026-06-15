@@ -10,7 +10,8 @@ import { industries } from '../data/industries';
 import { activeOffices } from '../data/offices';
 import { url } from '../utils/url';
 
-const previewServices = services.slice(0, 6);
+import { url } from '../utils/url';
+
 const previewIndustries = industries.slice(0, 6);
 ---
 
@@ -26,15 +27,7 @@ const previewIndustries = industries.slice(0, 6);
         </p>
       </div>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {previewServices.map((service) => <ServiceCard service={service} />)}
-      </div>
-      <div class="mt-10 text-center">
-        <a
-          href={url('/services/')}
-          class="inline-block rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-gie-navy-light"
-        >
-          View All Services
-        </a>
+        {services.map((service) => <ServiceCard service={service} />)}
       </div>
     </div>
   </section>
