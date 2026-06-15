@@ -41,7 +41,7 @@ export const offices: Office[] = [
     id: 'malaysia',
     country: 'Malaysia',
     entity: 'Global Alliance Engineering Sdn Bhd',
-    enabled: false,
+    enabled: true,
   },
   {
     id: 'thailand',
@@ -73,7 +73,7 @@ export const offices: Office[] = [
   },
 ];
 
-/** Offices shown on the website (MY & TH hidden until contact details are ready) */
+/** Offices shown on the website (TH hidden until contact details are ready) */
 export const activeOffices = offices.filter((office) => office.enabled !== false);
 
 export const primaryOffice = offices[0];

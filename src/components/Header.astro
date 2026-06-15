@@ -42,9 +42,9 @@ function isLinkActive(href: string): boolean {
 }
 ---
 
-<header id="site-header" class="relative sticky top-0 z-50 border-b border-gray-200 bg-white">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 sm:px-6 sm:py-3">
-    <a href={url('/')} class="flex items-center gap-3 sm:gap-4">
+<header id="site-header" class="relative sticky top-0 z-50 overflow-visible border-b border-gray-200 bg-white">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-0.5 sm:px-6 sm:py-1">
+    <a href={url('/')} class="-my-1 flex items-center gap-2 sm:-my-1.5 sm:gap-3">
       <img
         src={asset('images/logo/gie-logo.png')}
         alt={company.logoAlt}
@@ -52,14 +52,14 @@ function isLinkActive(href: string): boolean {
         width="128"
         height="128"
       />
-      <span class="hidden leading-tight sm:block">
-        <span class="block text-sm font-semibold tracking-wider text-gie-navy uppercase lg:text-base">
+      <span class="hidden leading-none sm:block">
+        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase lg:text-sm">
           Global
         </span>
-        <span class="block text-sm font-semibold tracking-wider text-gie-navy uppercase lg:text-base">
+        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase lg:text-sm">
           Infrastructure
         </span>
-        <span class="block text-sm font-semibold tracking-wider text-gie-navy uppercase lg:text-base">
+        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase lg:text-sm">
           Engineering
         </span>
       </span>
@@ -75,7 +75,7 @@ function isLinkActive(href: string): boolean {
               <a
                 href={url(item.href!)}
                 class:list={[
-                  'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
                   active ? 'text-gie-navy' : 'text-gie-text hover:text-gie-navy',
                 ]}
               >
@@ -89,7 +89,7 @@ function isLinkActive(href: string): boolean {
               <a
                 href={url(item.href!)}
                 class:list={[
-                  'flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  'flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
                   active ? 'text-gie-navy' : 'text-gie-text hover:text-gie-navy',
                 ]}
                 aria-haspopup="true"
