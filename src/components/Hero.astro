@@ -4,56 +4,102 @@ import { industriesStrip } from '../data/industries';
 import { heroSlides } from '../data/sitePhotos';
 import { asset, url } from '../utils/url';
 import LogoMark from './LogoMark.astro';
-
-const slideInterval = 5;
-const totalDuration = heroSlides.length * slideInterval;
 ---
 
-<section class="relative overflow-hidden bg-gie-navy text-white">
-  <div class="absolute inset-0" aria-hidden="true">
-    {
-      heroSlides.map((photo, index) => (
-        <img
-          src={asset(photo.src.replace(/^\//, ''))}
-          alt=""
-          class="hero-bg-slide absolute inset-0 h-full w-full object-cover"
-          style={`animation-delay: ${-index * slideInterval}s`}
-          loading={index === 0 ? 'eager' : 'lazy'}
-          decoding="async"
-          fetchpriority={index === 0 ? 'high' : 'auto'}
-        />
-      ))
-    }
-    <div class="absolute inset-0 bg-gie-navy/75"></div>
-  </div>
+<section class="hero-banner group relative bg-gie-navy text-white">
+  <div
+    id="hero-slider"
+    class="relative min-h-[28rem] overflow-hidden sm:min-h-[32rem] lg:min-h-[36rem]"
+    data-interval="5000"
+  >
+    <div class="absolute inset-0" aria-hidden="true">
+      {
+        heroSlides.map((photo, index) => (
+          <div
+            class:list={['hero-slide absolute inset-0', index === 0 && 'is-active']}
+            data-slide={index}
+          >
+            <img
+              src={asset(photo.src.replace(/^\//, ''))}
+              alt=""
+              class:list={[
+                'h-full w-full',
+                photo.contain ? 'object-contain object-center bg-gie-navy' : 'object-cover',
+              ]}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchpriority={index === 0 ? 'high' : 'auto'}
+            />
+          </div>
+        ))
+      }
+    </div>
 
-  <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-    <div class="max-w-3xl">
-      <div class="mb-6">
-        <LogoMark size="lg" onDark />
-      </div>
-      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-        {company.name}
-      </h1>
-      <p class="mt-4 text-lg text-gray-200 sm:text-xl">{company.tagline}</p>
-      <p class="mt-2 text-sm text-gray-300">
-        Est. {company.foundedYear} · Headquarters: {company.headquarters}
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a
-          href={url('/services/')}
-          class="rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-gie-navy transition-colors hover:bg-gray-100"
-        >
-          Our Services
-        </a>
-        <a
-          href={url('/contact/')}
-          class="rounded-md border border-white/40 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-        >
-          Get in Touch
-        </a>
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-r from-gie-navy/90 via-gie-navy/65 to-gie-navy/35"
+      aria-hidden="true"
+    />
+
+    <div class="relative z-10 flex min-h-[28rem] items-end sm:min-h-[32rem] lg:min-h-[36rem]">
+      <div class="mx-auto w-full max-w-6xl px-4 pb-14 pt-20 sm:px-6 sm:pb-16 lg:pb-20">
+        <div class="max-w-3xl">
+          <div class="mb-5 sm:mb-6">
+            <LogoMark size="lg" onDark />
+          </div>
+          <h1 class="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl xl:text-[3.25rem] xl:leading-tight">
+            {company.name}
+          </h1>
+          <p class="mt-3 text-lg text-gray-100 sm:mt-4 sm:text-xl lg:text-2xl">{company.tagline}</p>
+          <p class="mt-2 text-sm text-gray-300">
+            Est. {company.foundedYear} · Headquarters: {company.headquarters}
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3 sm:mt-8">
+            <a
+              href={url('/services/')}
+              class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gie-navy transition-colors hover:bg-gray-100"
+            >
+              Our Services
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              href={url('/contact/')}
+              class="inline-flex items-center rounded-full border border-white/50 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+            >
+              Get in Touch
+            </a>
+          </div>
+        </div>
       </div>
     </div>
+
+    {
+      heroSlides.length > 1 && (
+        <>
+          <button
+            type="button"
+            class="hero-nav hero-nav-prev"
+            aria-label="Previous slide"
+            data-hero-prev
+          >
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="hero-nav hero-nav-next"
+            aria-label="Next slide"
+            data-hero-next
+          >
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </>
+      )
+    }
   </div>
 
   <div class="relative border-t border-white/10 bg-gie-navy-light/80">
@@ -63,45 +109,129 @@ const totalDuration = heroSlides.length * slideInterval;
   </div>
 </section>
 
-<style define:vars={{ totalDuration: `${totalDuration}s` }}>
-  @keyframes hero-bg-fade {
-    0% {
-      opacity: 0;
-      transform: scale(1);
-    }
-    3% {
-      opacity: 1;
-    }
-    17% {
-      opacity: 1;
-      transform: scale(1.06);
-    }
-    20% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 0;
-    }
+<style>
+  .hero-slide {
+    opacity: 0;
+    transition: opacity 800ms ease-in-out;
+    z-index: 0;
   }
 
-  .hero-bg-slide {
-    animation: hero-bg-fade var(--totalDuration) infinite;
+  .hero-slide.is-active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .hero-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 6.75rem;
+    margin-top: -3.375rem;
+    border: none;
+    background: rgb(255 255 255 / 0.12);
+    color: white;
+    cursor: pointer;
     opacity: 0;
-    will-change: opacity, transform;
+    transition:
+      opacity 300ms ease,
+      background-color 200ms ease;
+  }
+
+  .hero-nav:hover {
+    background: rgb(255 255 255 / 0.22);
+  }
+
+  .hero-banner:hover .hero-nav {
+    opacity: 1;
+  }
+
+  .hero-nav-prev {
+    left: 0;
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+
+  .hero-nav-next {
+    right: 0;
+    border-radius: 0.375rem 0 0 0.375rem;
+  }
+
+  @media (max-width: 767px) {
+    .hero-nav {
+      width: 2.25rem;
+      height: 4.5rem;
+      margin-top: -2.25rem;
+      opacity: 0.85;
+    }
+
+    .hero-banner:hover .hero-nav {
+      opacity: 0.85;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-bg-slide {
-      animation: none;
+    .hero-slide {
+      transition: none;
     }
 
-    .hero-bg-slide:first-child {
-      opacity: 1;
-      transform: none;
-    }
-
-    .hero-bg-slide:not(:first-child) {
+    .hero-slide:not(.is-active) {
       display: none;
     }
   }
 </style>
+
+<script>
+  const slider = document.getElementById('hero-slider');
+  if (slider) {
+    const slides = Array.from(slider.querySelectorAll('.hero-slide'));
+    const prevBtn = slider.querySelector('[data-hero-prev]');
+    const nextBtn = slider.querySelector('[data-hero-next]');
+    const intervalMs = Number(slider.dataset.interval) || 5000;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (slides.length > 1 && !reducedMotion) {
+      let current = slides.findIndex((slide) => slide.classList.contains('is-active'));
+      if (current < 0) current = 0;
+
+      let timer: ReturnType<typeof setInterval> | undefined;
+
+      const goTo = (index: number) => {
+        slides[current]?.classList.remove('is-active');
+        current = (index + slides.length) % slides.length;
+        slides[current]?.classList.add('is-active');
+      };
+
+      const next = () => goTo(current + 1);
+      const prev = () => goTo(current - 1);
+
+      const start = () => {
+        clearInterval(timer);
+        timer = setInterval(next, intervalMs);
+      };
+
+      const stop = () => clearInterval(timer);
+
+      prevBtn?.addEventListener('click', () => {
+        prev();
+        start();
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        next();
+        start();
+      });
+
+      slider.addEventListener('mouseenter', stop);
+      slider.addEventListener('mouseleave', start);
+      slider.addEventListener('focusin', stop);
+      slider.addEventListener('focusout', (event) => {
+        if (!slider.contains(event.relatedTarget as Node)) start();
+      });
+
+      start();
+    }
+  }
+</script>

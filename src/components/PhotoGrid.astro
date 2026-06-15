@@ -5,6 +5,7 @@ interface Photo {
   src: string;
   alt: string;
   title?: string;
+  contain?: boolean;
 }
 
 interface Props {
@@ -25,14 +26,29 @@ const colClass = {
   {
     photos.map((photo) => (
       <figure class="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-        <img
-          src={asset(photo.src.startsWith('/') ? photo.src.slice(1) : photo.src)}
-          alt={photo.alt}
-          class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
-          width="640"
-          height="480"
-        />
+        {
+          photo.contain ? (
+            <div class="bg-gray-50">
+              <img
+                src={asset(photo.src.startsWith('/') ? photo.src.slice(1) : photo.src)}
+                alt={photo.alt}
+                class="w-full object-contain"
+                loading="lazy"
+                width="640"
+                height="640"
+              />
+            </div>
+          ) : (
+            <img
+              src={asset(photo.src.startsWith('/') ? photo.src.slice(1) : photo.src)}
+              alt={photo.alt}
+              class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              width="640"
+              height="480"
+            />
+          )
+        }
         {
           photo.title && (
             <figcaption class="px-3 py-2 text-center text-sm font-medium text-gie-navy">
