@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ServiceCard from '../components/ServiceCard.astro';
+import PageBanner from '../components/PageBanner.astro';
+import ServiceGrid from '../components/ServiceGrid.astro';
 import FacilitiesList from '../components/FacilitiesList.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
 import { services } from '../data/services';
 import { workingPhotos } from '../data/sitePhotos';
-import { asset, url } from '../utils/url';
+import { url } from '../utils/url';
 
 const actionPhotos = workingPhotos.slice(0, 6);
 ---
@@ -14,30 +15,15 @@ const actionPhotos = workingPhotos.slice(0, 6);
   title="Services"
   description="GIE valve automation and mechanical services: motorized valve integration, control and safety valve servicing, actuators, field instrumentation, flange management, training, and 3rd party class testing."
 >
-  <section class="relative overflow-hidden bg-gie-navy py-14 text-white">
-    <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-      <img
-        src={asset('images/working/working-site-1.jpeg')}
-        alt=""
-        class="h-full w-full scale-105 object-cover object-center blur-sm"
-        aria-hidden="true"
-      />
-    </div>
-    <div class="absolute inset-0 bg-gie-navy/80" aria-hidden="true" />
-    <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
-      <h1 class="text-3xl font-bold sm:text-4xl">Our Services</h1>
-      <p class="mt-3 max-w-2xl text-gray-200">
-        End-to-end valve automation and mechanical services for critical industrial facilities
-        across Asia Pacific.
-      </p>
-    </div>
-  </section>
+  <PageBanner
+    title="Our Services"
+    description="End-to-end valve automation and mechanical services for critical industrial facilities across Asia Pacific."
+    image="images/working/working-site-1.jpeg"
+  />
 
   <section class="py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service) => <ServiceCard service={service} />)}
-      </div>
+      <ServiceGrid services={services} />
     </div>
   </section>
 

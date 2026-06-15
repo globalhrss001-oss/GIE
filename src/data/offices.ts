@@ -32,8 +32,8 @@ export const offices: Office[] = [
       '#03-31 Peninsula Plaza',
       'Singapore 179098',
     ],
-    phone: '6338 4566',
-    fax: '6338 3266',
+    phone: '(65) 6338 4566',
+    fax: '(65) 6338 3266',
     mobile: '(65) 9062 2272',
     email: 'jc@giesg.com',
   },
@@ -59,8 +59,8 @@ export const offices: Office[] = [
       '8 Quarter, South Okklarpa Township',
       'Yangon, Myanmar',
     ],
-    mobile: '(+95) 9445657343',
-    email: 'jc@giesg.com',
+    mobile: '(95) 9445657343',
+    email: 'minthan@giesg.com',
     workshop: {
       name: 'G.I.E Workshop',
       address: [

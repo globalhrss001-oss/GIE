@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
-import LogoMark from '../components/LogoMark.astro';
+import PageBanner from '../components/PageBanner.astro';
 import { galleryImages } from '../data/gallery';
 ---
 
@@ -9,17 +9,11 @@ import { galleryImages } from '../data/gallery';
   title="Gallery"
   description="Photos from Global Infrastructure Engineering field services, training, and project work."
 >
-  <section class="bg-gie-navy py-14 text-white">
-    <div class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 sm:flex-row sm:items-center sm:gap-6 sm:px-6">
-      <LogoMark size="lg" onDark />
-      <div>
-        <h1 class="text-3xl font-bold sm:text-4xl">Gallery</h1>
-        <p class="mt-3 max-w-2xl text-gray-200">
-          A look at our field services, training, and engineering work across industrial facilities.
-        </p>
-      </div>
-    </div>
-  </section>
+  <PageBanner
+    title="Gallery"
+    description="A look at our field services, training, and engineering work across industrial facilities."
+    image="images/working/working-training.jpg"
+  />
 
   <section class="py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">

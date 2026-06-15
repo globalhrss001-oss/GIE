@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import ServiceCard from '../components/ServiceCard.astro';
+import ServiceGrid from '../components/ServiceGrid.astro';
 import IndustryList from '../components/IndustryList.astro';
 import { company } from '../data/company';
 import { services } from '../data/services';
@@ -22,9 +22,7 @@ const previewIndustries = industries.slice(0, 6);
           Valve automation and mechanical services for valves, actuators, and field instrumentation.
         </p>
       </div>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service) => <ServiceCard service={service} />)}
-      </div>
+      <ServiceGrid services={services} />
     </div>
   </section>
 
