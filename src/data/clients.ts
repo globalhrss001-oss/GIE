@@ -13,7 +13,6 @@ export const clientGroups: ClientGroup[] = [
       'Va Tech Wabag (Water Plant)',
       'Electromech Water (Water)',
       'Waterchem (Life Science)',
-      'PT McDermott',
       'AGS Flow Solution Pte Ltd',
     ],
   },

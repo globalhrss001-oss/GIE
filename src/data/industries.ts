@@ -41,7 +41,7 @@ export const industries: Industry[] = [
   },
   {
     id: 'food',
-    name: 'Food',
+    name: 'Food & Beverage',
     description:
       'Instrumentation calibration and valve servicing for food and beverage production facilities.',
     image: '/images/working/working-training.jpg',
