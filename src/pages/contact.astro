@@ -16,15 +16,6 @@ import { activeOffices } from '../data/offices';
     image="images/working/working-site-3.jpeg"
   />
 
-  <section class="py-16">
-    <div class="mx-auto max-w-2xl px-4 sm:px-6">
-      <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
-        <h2 class="mb-6 text-xl font-bold text-gie-navy">Send a Message</h2>
-        <ContactForm />
-      </div>
-    </div>
-  </section>
-
   <section class="bg-gie-gray py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <div class="mb-10 text-center">
@@ -35,6 +26,15 @@ import { activeOffices } from '../data/offices';
       </div>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {activeOffices.map((office) => <OfficeCard office={office} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+        <h2 class="mb-6 text-xl font-bold text-gie-navy">Send a Message</h2>
+        <ContactForm />
       </div>
     </div>
   </section>

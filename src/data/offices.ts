@@ -25,8 +25,6 @@ export const offices: Office[] = [
     country: 'Singapore',
     entity: 'GLOBAL INFRASTRUCTURE ENGINEERING PTE LTD',
     enabled: true,
-    contactPerson: 'Josephine Chin',
-    title: 'Director',
     address: [
       '111 North Bridge Road',
       '#03-31 Peninsula Plaza',
