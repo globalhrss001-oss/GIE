@@ -4,6 +4,26 @@ export interface Industry {
   description: string;
 }
 
+/** Four field photos for homepage industries showcase (2×2 grid) */
+export const industryShowcasePhotos = [
+  {
+    src: '/images/working/working-site-1.jpeg',
+    alt: 'GIE field service at a power generation facility',
+  },
+  {
+    src: '/images/working/working-site-2.jpeg',
+    alt: 'GIE team at an oil and gas plant',
+  },
+  {
+    src: '/images/working/working-recondition.jpg',
+    alt: 'In situ valve reconditioning at an industrial site',
+  },
+  {
+    src: '/images/working/working-safety-valve.jpg',
+    alt: 'Safety valve servicing for process industries',
+  },
+] as const;
+
 export const industries: Industry[] = [
   {
     id: 'power',

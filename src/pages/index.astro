@@ -2,17 +2,28 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import ServiceGrid from '../components/ServiceGrid.astro';
-import IndustryList from '../components/IndustryList.astro';
+import IndustryShowcase from '../components/IndustryShowcase.astro';
 import { company } from '../data/company';
 import { services } from '../data/services';
-import { industries } from '../data/industries';
-import { url } from '../utils/url';
-
-const previewIndustries = industries.slice(0, 6);
 ---
 
 <BaseLayout title={company.name} description={company.description}>
   <Hero />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-10 md:grid-cols-2 md:gap-12">
+        <div>
+          <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Our Mission</h2>
+          <p class="mt-4 text-base leading-relaxed text-gie-muted sm:text-lg">{company.mission}</p>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Our Vision</h2>
+          <p class="mt-4 text-base leading-relaxed text-gie-muted sm:text-lg">{company.vision}</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="bg-gie-gray py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
@@ -26,21 +37,5 @@ const previewIndustries = industries.slice(0, 6);
     </div>
   </section>
 
-  <section class="py-16">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="mb-10 text-center">
-        <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Industries We Serve</h2>
-        <p class="mt-2 text-gie-muted">Supporting critical sectors across Asia and globally.</p>
-      </div>
-      <IndustryList industries={previewIndustries} compact />
-      <div class="mt-8 text-center">
-        <a
-          href={url('/industries/')}
-          class="inline-block rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-gie-navy-light"
-        >
-          View All Industries
-        </a>
-      </div>
-    </div>
-  </section>
+  <IndustryShowcase />
 </BaseLayout>

@@ -18,6 +18,10 @@ export const company = {
     email: 'jc@giesg.com',
     mobile: '(65) 9062 2272',
   },
+  mission:
+    'To deliver reliable valve automation and mechanical services that keep critical industrial operations running safely, efficiently, and without interruption.',
+  vision:
+    'To be the trusted partner of choice for valve specialist and mechanical service solutions across Asia Pacific and beyond.',
   aboutIntro: [
     'Established in 2016 with Singapore as headquarters, Global Infrastructure Engineering has branches in Malaysia, Thailand, and Myanmar. G.I.E. specializes in mechanical services including valves & control, actuators, pumps, valve integration, field instrument calibration (pressure, temperature & level), bolt tensioning and torquing, in-situ flange repairing, and in-situ pressure safety valve repair & testing.',
     'We provide control & safety valve training covering fundamental maintenance, testing with standard compliance, and total valve management. All services are carried out by personnel with extensive expertise across leading valve manufacturers.',

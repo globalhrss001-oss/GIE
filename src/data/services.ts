@@ -26,20 +26,17 @@ export const services: Service[] = [
   {
     id: 'actuators',
     title: 'Actuators & Electrical Actuator Services',
-    description:
-      'Servicing of pneumatic, electric, and hydraulic actuators including IQ3 generation and electro-hydraulic units.',
+    description: 'Servicing of pneumatic, electric, and hydraulic actuators.',
   },
   {
     id: 'pump-compressor',
     title: 'Pump & Compressor',
-    description:
-      'Maintenance and servicing of pumps and compressors to support continuous plant operations.',
+    description: 'Maintenance and servicing of pumps and diaphragm pump.',
   },
   {
     id: 'in-situ-machining',
     title: 'Flange Management & In Situ Machining',
-    description:
-      'On-site flange machining, lapping, and repairing using Ventil and Unigrind lapping machines up to 18 inches.',
+    description: 'On-site flange machining, lapping, and repairing.',
   },
   {
     id: 'bolt-torquing',
@@ -63,7 +60,7 @@ export const services: Service[] = [
     id: 'valve-testing-class',
     title: 'Valve Testing & 3rd Party Class Approval',
     description:
-      'Valve pressure testing, modification, components machining, and class test arrangements with ABS, DNV, Lloyd\'s, BV, RMRS, and IRS.',
+      "Valve pressure testing, modification, components machining, and class test arrangements with ABS, DNV, and Lloyd's.",
   },
   {
     id: 'valves-management',
