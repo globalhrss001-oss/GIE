@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
+import GallerySummary from '../components/GallerySummary.astro';
 import PageBanner from '../components/PageBanner.astro';
 import { galleryImages } from '../data/gallery';
 ---
@@ -12,11 +13,12 @@ import { galleryImages } from '../data/gallery';
   <PageBanner
     title="Gallery"
     description="A look at our field services, training, and engineering work across industrial facilities."
-    image="images/working/working-training.jpg"
+    image="images/working/working-site-3.jpeg"
   />
 
   <section class="py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <GallerySummary />
       <GalleryGrid images={galleryImages} />
     </div>
   </section>

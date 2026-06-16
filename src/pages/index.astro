@@ -24,17 +24,20 @@ import { company } from '../data/company';
     </div>
   </section>
 
-  <section class="bg-gie-gray py-16">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+  <section class="relative overflow-hidden bg-gradient-to-br from-gie-navy via-gie-navy to-gie-navy-light py-16">
+    <div class="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-white/5 blur-3xl" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -bottom-16 left-0 h-48 w-48 rounded-full bg-white/5 blur-3xl" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
       <div class="mx-auto mb-10 max-w-2xl text-center">
-        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gie-navy-light">What We Do</p>
-        <h2 class="mt-2 text-2xl font-bold text-gie-navy sm:text-3xl">Our Services</h2>
-        <p class="mt-2 text-gie-muted">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">What We Do</p>
+        <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">Our Services</h2>
+        <p class="mt-2 text-white/80">
           Valve automation and mechanical services for valves, actuators, and field instrumentation.
         </p>
-        <div class="mx-auto mt-4 h-1 w-14 rounded-full bg-gie-navy" aria-hidden="true"></div>
+        <div class="mx-auto mt-4 h-1 w-14 rounded-full bg-white/90" aria-hidden="true"></div>
       </div>
-      <ServiceShowcase />
+      <ServiceShowcase theme="dark" />
     </div>
   </section>
 

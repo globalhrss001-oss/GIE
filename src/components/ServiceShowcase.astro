@@ -2,6 +2,13 @@
 import { services } from '../data/services';
 import { url } from '../utils/url';
 import ShowcaseTile from './ShowcaseTile.astro';
+
+interface Props {
+  theme?: 'light' | 'dark';
+}
+
+const { theme = 'light' } = Astro.props;
+const isDark = theme === 'dark';
 ---
 
 <ul class="grid gap-3 sm:grid-cols-2 sm:gap-4">
@@ -13,6 +20,7 @@ import ShowcaseTile from './ShowcaseTile.astro';
           label={service.title}
           index={index + 1}
           align="left"
+          theme={theme}
         />
       </li>
     ))
@@ -22,7 +30,12 @@ import ShowcaseTile from './ShowcaseTile.astro';
 <div class="mt-10 text-center">
   <a
     href={url('/services/')}
-    class="inline-flex items-center gap-2 rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-gie-navy-light hover:shadow-md"
+    class:list={[
+      'inline-flex items-center gap-2 rounded-md px-6 py-2.5 text-sm font-semibold shadow-sm transition hover:shadow-md',
+      isDark
+        ? 'bg-white text-gie-navy hover:bg-white/90'
+        : 'bg-gie-navy text-white hover:bg-gie-navy-light',
+    ]}
   >
     View All Services
     <span aria-hidden="true">→</span>

@@ -2,7 +2,9 @@ import { services } from './services';
 
 export interface NavLinkItem {
   label: string;
-  href: string;
+  href?: string;
+  /** Opens in-app UI instead of navigating to a page */
+  action?: 'org-chart';
 }
 
 export interface NavItem {
@@ -28,10 +30,9 @@ export const mainNavigation: NavItem[] = [
     matchPaths: ['/about/', '/offices/', '/industries/'],
     dropdownLinks: [
       { label: 'Who we are', href: '/about/' },
+      { label: 'Org Chart', action: 'org-chart' },
       { label: 'Certifications', href: '/about/#certifications' },
-      { label: 'Manufacturer expertise', href: '/about/#manufacturers' },
       { label: 'Our client record', href: '/about/#clients' },
-      { label: 'Our offices', href: '/offices/' },
       { label: 'Industries we serve', href: '/industries/' },
       { label: 'Contact us', href: '/contact/' },
     ],

@@ -1,6 +1,7 @@
 ---
+import OrgChartModal from './OrgChartModal.astro';
 import { company } from '../data/company';
-import { mainNavigation } from '../data/navigation';
+import { mainNavigation, type NavLinkItem } from '../data/navigation';
 import { asset, url } from '../utils/url';
 
 const currentPath = Astro.url.pathname;
@@ -53,32 +54,49 @@ function isLinkActive(href: string): boolean {
 
   return pathMatches && Astro.url.hash === `#${hashPart}`;
 }
+
+const navLinkBase =
+  'relative inline-flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium transition-colors duration-200';
+
+const navLinkIdle = 'text-gie-text hover:text-gie-navy';
+
+const navLinkActive = 'text-gie-navy';
+
+const dropdownItemBase =
+  'group/item mx-1.5 flex w-full items-start gap-2.5 rounded-md px-3 py-2.5 text-left text-sm leading-snug transition-colors text-gie-text hover:bg-gie-gray hover:text-gie-navy';
+
+const mobileDropdownItemBase =
+  'block w-full px-4 py-2.5 text-left text-sm transition-colors text-gie-text hover:bg-white hover:text-gie-navy';
+
+function isOrgChartLink(link: NavLinkItem): boolean {
+  return link.action === 'org-chart';
+}
 ---
 
-<header id="site-header" class="relative sticky top-0 z-50 overflow-visible border-b border-gray-200 bg-white">
+<header id="site-header" class="relative sticky top-0 z-50 overflow-visible border-b border-gray-200/80 bg-white/95 backdrop-blur-sm">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-0.5 sm:px-6 sm:py-1">
-    <a href={url('/')} class="-my-1 flex items-center gap-2 sm:-my-1.5 sm:gap-3">
+    <a href={url('/')} class="brand-lockup -my-1 flex shrink-0 items-center sm:-my-1.5">
       <img
         src={asset('images/logo/gie-logo.png')}
         alt={company.logoAlt}
-        class="h-24 w-24 shrink-0 object-contain sm:h-28 sm:w-28 lg:h-32 lg:w-32"
+        class="brand-lockup__logo h-24 w-24 shrink-0 object-contain sm:h-28 sm:w-28 lg:h-32 lg:w-32"
         width="128"
         height="128"
       />
-      <span class="hidden leading-none sm:block">
-        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase lg:text-sm">
+      <span class="brand-lockup__text hidden leading-none sm:block">
+        <span class="block text-xs font-semibold tracking-wide text-gie-navy uppercase lg:text-sm">
           Global
         </span>
-        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase lg:text-sm">
+        <span class="block text-xs font-semibold tracking-wide text-gie-navy uppercase lg:text-sm">
           Infrastructure
         </span>
-        <span class="block text-xs font-semibold tracking-wider text-gie-navy uppercase lg:text-sm">
+        <span class="block text-xs font-semibold tracking-wide text-gie-navy uppercase lg:text-sm">
           Engineering
         </span>
       </span>
     </a>
 
-    <nav class="hidden items-stretch gap-0.5 lg:flex" aria-label="Main navigation">
+    <nav class="nav-desktop hidden items-center gap-1 lg:flex" aria-label="Main navigation">
       {
         mainNavigation.map((item) => {
           const active = isNavItemActive(item);
@@ -87,72 +105,134 @@ function isLinkActive(href: string): boolean {
             return (
               <a
                 href={url(item.href!)}
-                class:list={[
-                  'flex items-center px-3 py-2.5 text-sm font-semibold tracking-wide uppercase transition-colors',
-                  active
-                    ? 'bg-gie-navy text-white'
-                    : 'text-gie-text hover:bg-gie-navy hover:text-white',
-                ]}
+                class:list={[navLinkBase, active ? navLinkActive : navLinkIdle]}
               >
                 {item.label}
+                {
+                  active && (
+                    <span
+                      class="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-gie-navy"
+                      aria-hidden="true"
+                    />
+                  )
+                }
               </a>
             );
           }
 
+          const hasFooter = item.dropdownLinks.at(-1)?.label.toLowerCase().startsWith('view all');
+          const panelLinks = hasFooter ? item.dropdownLinks.slice(0, -1) : item.dropdownLinks;
+          const footerLink = hasFooter ? item.dropdownLinks.at(-1) : null;
+
           return (
             <div
-              class:list={[
-                'nav-dropdown-trigger group relative',
-                active && 'is-active',
-              ]}
+              class:list={['nav-dropdown-trigger relative', active && 'is-active']}
               data-menu={item.id}
             >
               <a
                 href={url(item.href!)}
                 class:list={[
-                  'flex items-center gap-1.5 px-3 py-2.5 text-sm font-semibold tracking-wide uppercase transition-colors',
-                  active
-                    ? 'bg-gie-navy text-white'
-                    : 'text-gie-text group-hover:bg-gie-navy group-hover:text-white group-focus-within:bg-gie-navy group-focus-within:text-white',
+                  navLinkBase,
+                  'nav-dropdown-link',
+                  active ? navLinkActive : navLinkIdle,
                 ]}
                 aria-haspopup="true"
               >
                 {item.label}
+                {
+                  active && (
+                    <span
+                      class="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-gie-navy"
+                      aria-hidden="true"
+                    />
+                  )
+                }
                 <svg
-                  class="nav-chevron h-3.5 w-3.5 shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+                  class="nav-chevron h-4 w-4 shrink-0 text-gie-muted transition-transform duration-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
                   aria-hidden="true"
                 >
-                  <path d="M5.25 7.5 10 12.25 14.75 7.5H5.25Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </a>
 
-              <div
-                class="nav-dropdown-panel pointer-events-none absolute top-full left-0 z-50 min-w-[17rem] max-w-[20rem] -translate-y-1 opacity-0 transition-all duration-150 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100"
-                role="menu"
-              >
-                <ul class="max-h-80 overflow-y-auto border border-gray-200 bg-white shadow-lg">
+              <div class="nav-dropdown-panel pointer-events-none absolute top-[calc(100%+0.35rem)] left-0 z-50 w-[19rem] opacity-0 transition-all duration-200" role="menu">
+                <div class="overflow-hidden rounded-xl border border-gray-200/90 bg-white shadow-[0_16px_40px_-12px_rgba(43,58,120,0.25)] ring-1 ring-black/5">
+                  <div class="border-b border-gie-navy/10 bg-gradient-to-r from-gie-navy to-gie-navy-light px-4 py-3">
+                    <p class="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white/75">
+                      Browse
+                    </p>
+                    <p class="mt-0.5 text-sm font-semibold text-white">{item.label}</p>
+                  </div>
+
+                  <ul class="nav-dropdown-list max-h-[17rem] overflow-y-auto py-1.5">
+                    {
+                      panelLinks.map((link) => (
+                        <li role="none">
+                          {isOrgChartLink(link) ? (
+                            <button
+                              type="button"
+                              role="menuitem"
+                              data-org-chart-open
+                              class={dropdownItemBase}
+                            >
+                              <span
+                                class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-300 transition-colors group-hover/item:bg-gie-navy"
+                                aria-hidden="true"
+                              />
+                              <span>{link.label}</span>
+                            </button>
+                          ) : (
+                            <a
+                              href={url(link.href!)}
+                              role="menuitem"
+                              class:list={[
+                                dropdownItemBase,
+                                isLinkActive(link.href!)
+                                  ? 'bg-gie-navy/8 font-medium text-gie-navy'
+                                  : '',
+                              ]}
+                            >
+                              <span
+                                class:list={[
+                                  'mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full transition-colors',
+                                  isLinkActive(link.href!)
+                                    ? 'bg-gie-navy'
+                                    : 'bg-gray-300 group-hover/item:bg-gie-navy',
+                                ]}
+                                aria-hidden="true"
+                              />
+                              <span>{link.label}</span>
+                            </a>
+                          )}
+                        </li>
+                      ))
+                    }
+                  </ul>
+
                   {
-                    item.dropdownLinks.map((link, index) => (
-                      <li role="none">
+                    footerLink && (
+                      <div class="border-t border-gray-100 bg-gie-gray/50 px-3 py-2.5">
                         <a
-                          href={url(link.href)}
+                          href={url(footerLink.href)}
                           role="menuitem"
                           class:list={[
-                            'block border-b border-dotted border-gray-300 px-4 py-2.5 text-sm transition-colors hover:bg-gie-gray',
-                            index === item.dropdownLinks!.length - 1 && 'border-b-0 font-semibold text-gie-navy',
-                            isLinkActive(link.href)
-                              ? 'bg-gie-gray/70 font-medium text-gie-navy'
-                              : 'text-gie-text hover:text-gie-navy',
+                            'flex items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors',
+                            isLinkActive(footerLink.href)
+                              ? 'text-gie-navy'
+                              : 'text-gie-navy-light hover:text-gie-navy',
                           ]}
                         >
-                          {link.label}
+                          {footerLink.label}
+                          <span aria-hidden="true">→</span>
                         </a>
-                      </li>
-                    ))
+                      </div>
+                    )
                   }
-                </ul>
+                </div>
               </div>
             </div>
           );
@@ -187,9 +267,9 @@ function isLinkActive(href: string): boolean {
               <a
                 href={url(item.href!)}
                 class:list={[
-                  'block border-b border-dotted border-gray-200 px-3 py-3 text-sm font-semibold uppercase tracking-wide',
+                  'block rounded-md px-3 py-3 text-sm font-medium',
                   isNavItemActive(item)
-                    ? 'text-gie-navy'
+                    ? 'bg-gie-navy/8 text-gie-navy'
                     : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
                 ]}
               >
@@ -198,37 +278,65 @@ function isLinkActive(href: string): boolean {
             );
           }
 
+          const hasFooter = item.dropdownLinks.at(-1)?.label.toLowerCase().startsWith('view all');
+          const panelLinks = hasFooter ? item.dropdownLinks.slice(0, -1) : item.dropdownLinks;
+          const footerLink = hasFooter ? item.dropdownLinks.at(-1) : null;
+
           return (
-            <details class="group/mobile border-b border-dotted border-gray-200 py-1">
-              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-3 py-3 text-sm font-semibold uppercase tracking-wide text-gie-text marker:content-none hover:bg-gie-gray hover:text-gie-navy [&::-webkit-details-marker]:hidden">
+            <details class="group/mobile py-1">
+              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-3 py-3 text-sm font-medium text-gie-text marker:content-none hover:bg-gie-gray hover:text-gie-navy [&::-webkit-details-marker]:hidden">
                 <span>{item.label}</span>
                 <svg
-                  class="h-3.5 w-3.5 shrink-0 transition-transform group-open/mobile:rotate-180"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+                  class="h-4 w-4 shrink-0 text-gie-muted transition-transform group-open/mobile:rotate-180"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
                   aria-hidden="true"
                 >
-                  <path d="M5.25 7.5 10 12.25 14.75 7.5H5.25Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <ul class="pb-2">
+              <div class="mt-1 overflow-hidden rounded-lg border border-gray-200 bg-gie-gray/30">
+                <ul class="py-1">
+                  {
+                    panelLinks.map((link) => (
+                      <li>
+                        {isOrgChartLink(link) ? (
+                          <button
+                            type="button"
+                            data-org-chart-open
+                            class={mobileDropdownItemBase}
+                          >
+                            {link.label}
+                          </button>
+                        ) : (
+                          <a
+                            href={url(link.href!)}
+                            class:list={[
+                              'block px-4 py-2.5 text-sm transition-colors',
+                              isLinkActive(link.href!)
+                                ? 'bg-white font-medium text-gie-navy'
+                                : 'text-gie-text hover:bg-white hover:text-gie-navy',
+                            ]}
+                          >
+                            {link.label}
+                          </a>
+                        )}
+                      </li>
+                    ))
+                  }
+                </ul>
                 {
-                  item.dropdownLinks.map((link, index) => (
-                    <li>
-                      <a
-                        href={url(link.href)}
-                        class:list={[
-                          'block border-b border-dotted border-gray-200 px-5 py-2.5 text-sm hover:bg-gie-gray hover:text-gie-navy',
-                          index === item.dropdownLinks!.length - 1 && 'border-b-0 font-semibold text-gie-navy',
-                          isLinkActive(link.href) ? 'text-gie-navy' : 'text-gie-text',
-                        ]}
-                      >
-                        {link.label}
+                  footerLink && (
+                    <div class="border-t border-gray-200 bg-white px-4 py-2.5">
+                      <a href={url(footerLink.href)} class="text-sm font-semibold text-gie-navy-light">
+                        {footerLink.label} →
                       </a>
-                    </li>
-                  ))
+                    </div>
+                  )
                 }
-              </ul>
+              </div>
             </details>
           );
         })
@@ -237,7 +345,27 @@ function isLinkActive(href: string): boolean {
   </nav>
 </header>
 
+<OrgChartModal />
+
 <style>
+  .brand-lockup {
+    gap: 0.125rem;
+  }
+
+  .brand-lockup__logo {
+    margin-right: -0.35rem;
+  }
+
+  .brand-lockup__text {
+    margin-left: -0.15rem;
+  }
+
+  @media (min-width: 1024px) {
+    .brand-lockup__logo {
+      margin-right: -0.5rem;
+    }
+  }
+
   .nav-dropdown-panel::before {
     content: '';
     position: absolute;
@@ -248,37 +376,34 @@ function isLinkActive(href: string): boolean {
   }
 
   .nav-dropdown-trigger:hover .nav-chevron,
-  .nav-dropdown-trigger:focus-within .nav-chevron,
-  .nav-dropdown-trigger.is-active .nav-chevron {
+  .nav-dropdown-trigger:focus-within .nav-chevron {
     transform: rotate(180deg);
+    color: var(--color-gie-navy);
+  }
+
+  .nav-dropdown-trigger:hover .nav-dropdown-panel,
+  .nav-dropdown-trigger:focus-within .nav-dropdown-panel {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .nav-chevron {
-    transition: transform 0.15s ease;
+    transition: transform 0.2s ease, color 0.2s ease;
   }
 
-  .nav-dropdown-panel ul {
+  .nav-dropdown-list {
     scrollbar-width: thin;
-    scrollbar-color: #9ca3af #f3f4f6;
+    scrollbar-color: #cbd5e1 transparent;
   }
 
-  .nav-dropdown-panel ul::-webkit-scrollbar {
-    width: 8px;
+  .nav-dropdown-list::-webkit-scrollbar {
+    width: 6px;
   }
 
-  .nav-dropdown-panel ul::-webkit-scrollbar-track {
-    background: #f3f4f6;
-  }
-
-  .nav-dropdown-panel ul::-webkit-scrollbar-thumb {
-    background: #9ca3af;
+  .nav-dropdown-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
     border-radius: 9999px;
-  }
-
-  .nav-dropdown-panel ul::-webkit-scrollbar-button {
-    display: block;
-    height: 8px;
-    background: #f3f4f6;
   }
 </style>
 

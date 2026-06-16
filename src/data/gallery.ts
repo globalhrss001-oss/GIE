@@ -4,6 +4,8 @@ export interface GalleryImage {
   title: string;
   category: string;
   description: string;
+  type?: 'image' | 'video';
+  poster?: string;
 }
 
 export const galleryImages: GalleryImage[] = [
@@ -78,39 +80,29 @@ export const galleryImages: GalleryImage[] = [
     description: 'Hands-on mechanical servicing by GIE technicians.',
   },
   {
-    src: '/images/working/working-testing.jpg',
-    alt: 'Pilot valve testing by GIE technicians',
-    title: 'Valve Testing',
-    category: 'Pilot Valve Testing',
-    description: 'On-site pilot valve testing and verification.',
+    src: '/images/gallery/on-site-machining-work.jpeg',
+    alt: 'GIE technicians performing on-site flange machining at an industrial plant',
+    title: 'On Site Machining Work',
+    category: 'In Situ Machining',
+    description: 'Portable flange machining equipment deployed on-site for precision field work.',
   },
   {
-    src: '/images/working/working-lapping.jpg',
-    alt: 'Safety valve lapping operation',
-    title: 'Valve Lapping',
-    category: 'Safety Valve Lapping',
-    description: 'Precision lapping to restore valve seal integrity.',
+    src: '/videos/onsite-machining.mp4',
+    alt: 'On-site machining operation video',
+    title: 'Onsite Machining',
+    category: 'In Situ Machining',
+    description: 'Field machining setup and operation at a client facility.',
+    type: 'video',
+    poster: '/images/gallery/on-site-machining-work.jpeg',
   },
   {
-    src: '/images/working/working-safety-valve.jpg',
-    alt: 'Safety valve overhaul on-site',
-    title: 'Safety Valve Service',
-    category: 'Safety Valve Servicing',
-    description: 'Critical safety valve overhaul at client site.',
-  },
-  {
-    src: '/images/working/working-recondition.jpg',
-    alt: 'In situ valve reconditioning',
-    title: 'In Situ Reconditioning',
-    category: 'In Situ Recondition',
-    description: 'Valve reconditioning performed without line removal.',
-  },
-  {
-    src: '/images/working/working-training.jpg',
-    alt: 'GIE valve training session',
-    title: 'Training Session',
-    category: 'Valve Training',
-    description: 'Technical training for plant personnel and engineers.',
+    src: '/videos/insitu-steam-bypass-control-valve-servicing.mp4',
+    alt: 'In situ steam bypass control valve servicing video',
+    title: 'Insitu Steam ByPass Control Valve Servicing',
+    category: 'Control Valve Servicing',
+    description: 'On-site servicing of a steam bypass control valve assembly.',
+    type: 'video',
+    poster: '/images/gallery/on-site-machining-work.jpeg',
   },
   {
     src: '/images/team/gie-team.png',
