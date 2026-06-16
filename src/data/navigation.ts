@@ -30,7 +30,7 @@ export const mainNavigation: NavItem[] = [
       { label: 'Who we are', href: '/about/' },
       { label: 'Organization Chart', action: 'org-chart' },
       { label: 'Certifications', href: '/about/#certifications' },
-      { label: 'Our client record', href: '/about/#clients' },
+      { label: 'Our Client Record', href: '/about/#clients' },
     ],
   },
   {
@@ -49,9 +49,9 @@ export const mainNavigation: NavItem[] = [
     href: '/services/',
     matchPaths: ['/services/', '/industries/', '/products/'],
     dropdownLinks: [
+      { label: 'Products', href: '/products/' },
       { label: 'Our Services', href: '/services/#our-services' },
       { label: 'Industries We Serve', href: '/industries/' },
-      { label: 'Products', href: '/products/' },
     ],
   },
   {
