@@ -1,6 +1,12 @@
 ---
-import { industries, industryShowcasePhotos } from '../data/industries';
-import { asset, url } from '../utils/url';
+import { industries } from '../data/industries';
+import { url } from '../utils/url';
+
+const topRow = industries.slice(0, 4);
+const bottomRow = industries.slice(4);
+
+const buttonClass =
+  'flex h-full min-h-12 items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-3 text-center text-sm font-bold leading-snug text-gie-navy shadow-sm transition hover:border-gie-navy/25 hover:bg-gie-gray sm:min-h-14 sm:px-5 sm:text-base';
 ---
 
 <section class="py-16">
@@ -10,33 +16,26 @@ import { asset, url } from '../utils/url';
       <p class="mt-2 text-gie-muted">Supporting critical sectors across Asia and globally.</p>
     </div>
 
-    <div class="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-12">
-      <div class="grid grid-cols-2 gap-3 sm:gap-4">
+    <div class="mx-auto max-w-5xl space-y-3 sm:space-y-4">
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
         {
-          industryShowcasePhotos.map((photo) => (
-            <div class="aspect-square overflow-hidden rounded-lg border border-gray-200 bg-gray-50 shadow-sm">
-              <img
-                src={asset(photo.src.replace(/^\//, ''))}
-                alt={photo.alt}
-                class="h-full w-full object-cover"
-                loading="lazy"
-                width="400"
-                height="400"
-              />
-            </div>
+          topRow.map((industry) => (
+            <a href={url(`/industries/#${industry.id}`)} class={buttonClass}>
+              {industry.name}
+            </a>
           ))
         }
       </div>
 
-      <ul class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white shadow-sm">
+      <div class="grid grid-cols-2 gap-3 sm:mx-auto sm:max-w-[calc(75%-0.75rem)] sm:grid-cols-3 sm:gap-4">
         {
-          industries.map((industry) => (
-            <li class="px-5 py-3.5 sm:px-6 sm:py-4">
-              <h3 class="font-bold text-gie-navy">{industry.name}</h3>
-            </li>
+          bottomRow.map((industry) => (
+            <a href={url(`/industries/#${industry.id}`)} class={buttonClass}>
+              {industry.name}
+            </a>
           ))
         }
-      </ul>
+      </div>
     </div>
 
     <div class="mt-8 text-center">

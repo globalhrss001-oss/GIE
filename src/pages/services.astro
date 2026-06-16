@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageBanner from '../components/PageBanner.astro';
 import ServiceGrid from '../components/ServiceGrid.astro';
-import FacilitiesList from '../components/FacilitiesList.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
 import { services } from '../data/services';
 import { workingPhotos } from '../data/sitePhotos';
@@ -41,18 +40,6 @@ const actionPhotos = workingPhotos.slice(0, 6);
         >
           View Full Gallery
         </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-gie-gray py-16">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Facilities & Capabilities</h2>
-      <p class="mt-2 text-gie-muted">
-        Mobile test benches, lapping machines, and on-site commissioning equipment.
-      </p>
-      <div class="mt-8">
-        <FacilitiesList />
       </div>
     </div>
   </section>
