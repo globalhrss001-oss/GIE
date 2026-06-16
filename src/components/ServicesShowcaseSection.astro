@@ -1,0 +1,71 @@
+---
+import ServiceShowcase from './ServiceShowcase.astro';
+import { asset } from '../utils/url';
+
+const backgroundPhotos = [
+  {
+    src: 'images/gallery/service-3.jpg',
+    alt: '',
+  },
+  {
+    src: 'images/gallery/service-5.jpg',
+    alt: '',
+  },
+  {
+    src: 'images/working/working-site-1.jpeg',
+    alt: '',
+  },
+  {
+    src: 'images/gallery/service-1.jpeg',
+    alt: '',
+  },
+  {
+    src: 'images/gallery/service-4.jpg',
+    alt: '',
+  },
+  {
+    src: 'images/working/working-site-3.jpeg',
+    alt: '',
+  },
+  {
+    src: 'images/gallery/on-site-machining-work.jpeg',
+    alt: '',
+  },
+  {
+    src: 'images/working/working-training.jpg',
+    alt: '',
+  },
+] as const;
+---
+
+<section class="relative overflow-hidden py-16">
+  <div class="absolute inset-0 grid grid-cols-2 grid-rows-4 sm:grid-cols-4 sm:grid-rows-2" aria-hidden="true">
+    {
+      backgroundPhotos.map((photo) => (
+        <img
+          src={asset(photo.src)}
+          alt={photo.alt}
+          class="h-full w-full scale-105 object-cover blur-[1px]"
+          loading="lazy"
+        />
+      ))
+    }
+  </div>
+
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-gie-navy/99 via-gie-navy/95 to-gie-navy-light/97"
+    aria-hidden="true"
+  />
+
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="mx-auto mb-10 max-w-2xl text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">What We Do</p>
+      <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">Our Services</h2>
+      <p class="mt-2 text-white/80">
+        Valve automation and mechanical services for valves, actuators, and field instrumentation.
+      </p>
+      <div class="mx-auto mt-4 h-1 w-14 rounded-full bg-white/90" aria-hidden="true"></div>
+    </div>
+    <ServiceShowcase theme="dark" />
+  </div>
+</section>

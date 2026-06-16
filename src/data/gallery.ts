@@ -112,3 +112,6 @@ export const galleryImages: GalleryImage[] = [
     description: 'Global Infrastructure Engineering field engineers and technicians.',
   },
 ];
+
+export const galleryPhotos = galleryImages.filter((image) => image.type !== 'video');
+export const galleryVideos = galleryImages.filter((image) => image.type === 'video');

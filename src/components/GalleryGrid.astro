@@ -5,16 +5,21 @@ import LogoMark from './LogoMark.astro';
 
 interface Props {
   images: GalleryImage[];
+  title?: string;
+  class?: string;
 }
 
-const { images } = Astro.props;
+const { images, title, class: className = '' } = Astro.props;
 
 function mediaPath(src: string): string {
   return asset(src.startsWith('/') ? src.slice(1) : src);
 }
 ---
 
-<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<div class:list={[className]}>
+  {title && <h2 class="mb-6 text-2xl font-bold text-gie-navy sm:text-3xl">{title}</h2>}
+
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
   {
     images.map((image) => (
       <article class="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
@@ -65,4 +70,5 @@ function mediaPath(src: string): string {
       </article>
     ))
   }
+  </div>
 </div>

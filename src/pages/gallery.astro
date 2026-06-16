@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
 import GallerySummary from '../components/GallerySummary.astro';
 import PageBanner from '../components/PageBanner.astro';
-import { galleryImages } from '../data/gallery';
+import { galleryPhotos, galleryVideos } from '../data/gallery';
 ---
 
 <BaseLayout
@@ -19,7 +19,8 @@ import { galleryImages } from '../data/gallery';
   <section class="py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <GallerySummary />
-      <GalleryGrid images={galleryImages} />
+      <GalleryGrid images={galleryPhotos} title="Photos" />
+      <GalleryGrid class="mt-14" images={galleryVideos} title="Videos" />
     </div>
   </section>
 </BaseLayout>

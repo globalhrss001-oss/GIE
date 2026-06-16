@@ -1,5 +1,3 @@
-import { services } from './services';
-
 export interface NavLinkItem {
   label: string;
   href?: string;
@@ -30,10 +28,9 @@ export const mainNavigation: NavItem[] = [
     matchPaths: ['/about/', '/offices/', '/industries/'],
     dropdownLinks: [
       { label: 'Who we are', href: '/about/' },
-      { label: 'Org Chart', action: 'org-chart' },
+      { label: 'Organization Chart', action: 'org-chart' },
       { label: 'Certifications', href: '/about/#certifications' },
       { label: 'Our client record', href: '/about/#clients' },
-      { label: 'Industries we serve', href: '/industries/' },
       { label: 'Contact us', href: '/contact/' },
     ],
   },
@@ -47,13 +44,11 @@ export const mainNavigation: NavItem[] = [
     id: 'services',
     label: 'Services',
     href: '/services/',
-    matchPaths: ['/services/'],
+    matchPaths: ['/services/', '/industries/'],
     dropdownLinks: [
-      ...services.map((service) => ({
-        label: service.title,
-        href: `/services/#${service.id}`,
-      })),
-      { label: 'View all services', href: '/services/' },
+      { label: 'Our Service', href: '/services/#our-services' },
+      { label: 'Industries We Serve', href: '/industries/' },
+      { label: 'Service in Action', href: '/services/#service-in-action' },
     ],
   },
   {
