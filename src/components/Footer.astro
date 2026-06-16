@@ -40,8 +40,8 @@ const quickLinkColumns = [navLinks.slice(0, quickLinkMidpoint), navLinks.slice(q
     <div>
       <p class="text-xs font-semibold uppercase tracking-wide text-gray-400">Singapore Office</p>
       <address class="mt-2 space-y-0.5 text-xs not-italic leading-relaxed text-gray-200">
-        <span class="block">{primaryOffice.address?.join(', ')}</span>
-        <span class="block">
+        {primaryOffice.address?.map((line) => <span class="block">{line}</span>)}
+        <span class="block pt-1">
           Tel: <a href={`tel:${primaryOffice.phone}`} class="hover:text-white">{primaryOffice.phone}</a>
           {' · '}
           <a href={`mailto:${primaryOffice.email}`} class="hover:text-white">{primaryOffice.email}</a>

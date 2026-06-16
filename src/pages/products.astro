@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductList from '../components/ProductList.astro';
+import { productHeroImage, products } from '../data/products';
+import { asset } from '../utils/url';
+---
+
+<BaseLayout
+  title="Products"
+  description="GIE gasket and sealing products including insulating gaskets, PTFE products, spiral wound gaskets, ring joints, and heat exchanger gaskets."
+>
+  <section class="bg-gie-navy py-10 text-white">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <h1 class="text-3xl font-bold sm:text-4xl">Products</h1>
+      <p class="mt-3 max-w-2xl text-gray-200">
+        Gasket and sealing products for industrial flange connections, heat exchangers, and
+        customized fabrication requirements.
+      </p>
+      <p class="mt-4 text-xs font-semibold uppercase tracking-wider text-gray-300 sm:text-sm">
+        {products.length} product lines
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12 sm:py-14">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <figure class="mb-10 overflow-hidden rounded-xl border border-gray-200 bg-gie-gray/30 shadow-sm">
+        <img
+          src={asset(productHeroImage.src.slice(1))}
+          alt={productHeroImage.alt}
+          class="mx-auto max-h-[28rem] w-full object-contain p-4 sm:p-6"
+          loading="lazy"
+          width="1200"
+          height="800"
+        />
+      </figure>
+
+      <ProductList products={products} />
+    </div>
+  </section>
+</BaseLayout>

@@ -38,8 +38,15 @@ export const offices: Office[] = [
   {
     id: 'malaysia',
     country: 'Malaysia',
-    entity: 'Global Alliance Engineering Sdn Bhd',
+    entity: 'GLOBAL ALLIANCE ENGINEERING (MALAYSIA) SDN BHD',
     enabled: true,
+    address: [
+      'No. 18A Jalan Impian Emas 4',
+      'Taman Impian Emas',
+      '81300 Johor Bahru',
+    ],
+    mobile: '(65) 9062 2272',
+    email: 'jc@giesg.com',
   },
   {
     id: 'thailand',
