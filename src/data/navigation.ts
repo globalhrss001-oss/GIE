@@ -25,7 +25,7 @@ export const mainNavigation: NavItem[] = [
     id: 'about',
     label: 'About Us',
     href: '/about/',
-    matchPaths: ['/about/', '/offices/', '/industries/'],
+    matchPaths: ['/about/', '/offices/'],
     dropdownLinks: [
       { label: 'Who we are', href: '/about/' },
       { label: 'Organization Chart', action: 'org-chart' },
@@ -39,6 +39,10 @@ export const mainNavigation: NavItem[] = [
     label: 'Gallery',
     href: '/gallery/',
     matchPaths: ['/gallery/'],
+    dropdownLinks: [
+      { label: 'Photos', href: '/gallery/#photos' },
+      { label: 'Videos', href: '/gallery/#videos' },
+    ],
   },
   {
     id: 'services',
@@ -46,7 +50,7 @@ export const mainNavigation: NavItem[] = [
     href: '/services/',
     matchPaths: ['/services/', '/industries/'],
     dropdownLinks: [
-      { label: 'Our Service', href: '/services/#our-services' },
+      { label: 'Our Services', href: '/services/#our-services' },
       { label: 'Industries We Serve', href: '/industries/' },
       { label: 'Service in Action', href: '/services/#service-in-action' },
     ],

@@ -19,8 +19,8 @@ import { galleryPhotos, galleryVideos } from '../data/gallery';
   <section class="py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <GallerySummary />
-      <GalleryGrid images={galleryPhotos} title="Photos" />
-      <GalleryGrid class="mt-14" images={galleryVideos} title="Videos" />
+      <GalleryGrid id="photos" images={galleryPhotos} title="Photos" />
+      <GalleryGrid id="videos" class="mt-14" images={galleryVideos} title="Videos" />
     </div>
   </section>
 </BaseLayout>

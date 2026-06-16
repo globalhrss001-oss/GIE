@@ -6,17 +6,18 @@ import LogoMark from './LogoMark.astro';
 interface Props {
   images: GalleryImage[];
   title?: string;
+  id?: string;
   class?: string;
 }
 
-const { images, title, class: className = '' } = Astro.props;
+const { images, title, id, class: className = '' } = Astro.props;
 
 function mediaPath(src: string): string {
   return asset(src.startsWith('/') ? src.slice(1) : src);
 }
 ---
 
-<div class:list={[className]}>
+<div id={id} class:list={['scroll-mt-24', className]}>
   {title && <h2 class="mb-6 text-2xl font-bold text-gie-navy sm:text-3xl">{title}</h2>}
 
   <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
