@@ -1,49 +1,56 @@
 ---
 import { industries } from '../data/industries';
 import { url } from '../utils/url';
+import ShowcaseTile from './ShowcaseTile.astro';
 
 const topRow = industries.slice(0, 4);
 const bottomRow = industries.slice(4);
-
-const buttonClass =
-  'flex h-full min-h-12 items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-3 text-center text-sm font-bold leading-snug text-gie-navy shadow-sm transition hover:border-gie-navy/25 hover:bg-gie-gray sm:min-h-14 sm:px-5 sm:text-base';
 ---
 
-<section class="py-16">
+<section class="border-t border-gray-200 bg-gradient-to-b from-white to-gie-gray/60 py-16">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
-    <div class="mb-10 text-center">
-      <h2 class="text-2xl font-bold text-gie-navy sm:text-3xl">Industries We Serve</h2>
+    <div class="mx-auto mb-10 max-w-2xl text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gie-navy-light">Sectors</p>
+      <h2 class="mt-2 text-2xl font-bold text-gie-navy sm:text-3xl">Industries We Serve</h2>
       <p class="mt-2 text-gie-muted">Supporting critical sectors across Asia and globally.</p>
+      <div class="mx-auto mt-4 h-1 w-14 rounded-full bg-gie-navy" aria-hidden="true"></div>
     </div>
 
     <div class="mx-auto max-w-5xl space-y-3 sm:space-y-4">
       <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
         {
-          topRow.map((industry) => (
-            <a href={url(`/industries/#${industry.id}`)} class={buttonClass}>
-              {industry.name}
-            </a>
+          topRow.map((industry, index) => (
+            <ShowcaseTile
+              href={url(`/industries/#${industry.id}`)}
+              label={industry.name}
+              index={index + 1}
+              align="center"
+            />
           ))
         }
       </div>
 
       <div class="grid grid-cols-2 gap-3 sm:mx-auto sm:max-w-[calc(75%-0.75rem)] sm:grid-cols-3 sm:gap-4">
         {
-          bottomRow.map((industry) => (
-            <a href={url(`/industries/#${industry.id}`)} class={buttonClass}>
-              {industry.name}
-            </a>
+          bottomRow.map((industry, index) => (
+            <ShowcaseTile
+              href={url(`/industries/#${industry.id}`)}
+              label={industry.name}
+              index={index + 5}
+              align="center"
+            />
           ))
         }
       </div>
     </div>
 
-    <div class="mt-8 text-center">
+    <div class="mt-10 text-center">
       <a
         href={url('/industries/')}
-        class="inline-block rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-gie-navy-light"
+        class="inline-flex items-center gap-2 rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-gie-navy-light hover:shadow-md"
       >
         View All Industries
+        <span aria-hidden="true">→</span>
       </a>
     </div>
   </div>

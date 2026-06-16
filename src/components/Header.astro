@@ -4,7 +4,6 @@ import { mainNavigation } from '../data/navigation';
 import { asset, url } from '../utils/url';
 
 const currentPath = Astro.url.pathname;
-const menuItems = mainNavigation.filter((item) => item.columns);
 
 function normalizePath(path: string): string {
   const base = import.meta.env.BASE_URL;
@@ -34,11 +33,25 @@ function isNavItemActive(item: (typeof mainNavigation)[number]): boolean {
 }
 
 function isLinkActive(href: string): boolean {
-  const [pathPart] = href.split('#');
+  const [pathPart, hashPart] = href.split('#');
+  const normalizedHref = pathPart === '/' ? pathPart : pathPart.replace(/\/$/, '');
+  const normalizedPath =
+    normalizedCurrent === '' || normalizedCurrent === '/'
+      ? '/'
+      : normalizedCurrent.replace(/\/$/, '');
+
   if (pathPart === '/') {
-    return isHomeActive();
+    return isHomeActive() && !hashPart;
   }
-  return normalizedCurrent.includes(pathPart);
+
+  const pathMatches =
+    normalizedPath === normalizedHref || normalizedPath.startsWith(`${normalizedHref}/`);
+
+  if (!hashPart) {
+    return pathMatches;
+  }
+
+  return pathMatches && Astro.url.hash === `#${hashPart}`;
 }
 ---
 
@@ -65,18 +78,20 @@ function isLinkActive(href: string): boolean {
       </span>
     </a>
 
-    <nav class="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
+    <nav class="hidden items-stretch gap-0.5 lg:flex" aria-label="Main navigation">
       {
         mainNavigation.map((item) => {
           const active = isNavItemActive(item);
 
-          if (!item.columns) {
+          if (!item.dropdownLinks) {
             return (
               <a
                 href={url(item.href!)}
                 class:list={[
-                  'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-                  active ? 'text-gie-navy' : 'text-gie-text hover:text-gie-navy',
+                  'flex items-center px-3 py-2.5 text-sm font-semibold tracking-wide uppercase transition-colors',
+                  active
+                    ? 'bg-gie-navy text-white'
+                    : 'text-gie-text hover:bg-gie-navy hover:text-white',
                 ]}
               >
                 {item.label}
@@ -85,20 +100,60 @@ function isLinkActive(href: string): boolean {
           }
 
           return (
-            <div class="nav-dropdown-trigger" data-menu={item.id}>
+            <div
+              class:list={[
+                'nav-dropdown-trigger group relative',
+                active && 'is-active',
+              ]}
+              data-menu={item.id}
+            >
               <a
                 href={url(item.href!)}
                 class:list={[
-                  'flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-                  active ? 'text-gie-navy' : 'text-gie-text hover:text-gie-navy',
+                  'flex items-center gap-1.5 px-3 py-2.5 text-sm font-semibold tracking-wide uppercase transition-colors',
+                  active
+                    ? 'bg-gie-navy text-white'
+                    : 'text-gie-text group-hover:bg-gie-navy group-hover:text-white group-focus-within:bg-gie-navy group-focus-within:text-white',
                 ]}
                 aria-haspopup="true"
               >
                 {item.label}
-                <svg class="nav-chevron h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                <svg
+                  class="nav-chevron h-3.5 w-3.5 shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  aria-hidden="true"
+                >
+                  <path d="M5.25 7.5 10 12.25 14.75 7.5H5.25Z" />
                 </svg>
               </a>
+
+              <div
+                class="nav-dropdown-panel pointer-events-none absolute top-full left-0 z-50 min-w-[17rem] max-w-[20rem] -translate-y-1 opacity-0 transition-all duration-150 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                role="menu"
+              >
+                <ul class="max-h-80 overflow-y-auto border border-gray-200 bg-white shadow-lg">
+                  {
+                    item.dropdownLinks.map((link, index) => (
+                      <li role="none">
+                        <a
+                          href={url(link.href)}
+                          role="menuitem"
+                          class:list={[
+                            'block border-b border-dotted border-gray-300 px-4 py-2.5 text-sm transition-colors hover:bg-gie-gray',
+                            index === item.dropdownLinks!.length - 1 && 'border-b-0 font-semibold text-gie-navy',
+                            isLinkActive(link.href)
+                              ? 'bg-gie-gray/70 font-medium text-gie-navy'
+                              : 'text-gie-text hover:text-gie-navy',
+                          ]}
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
             </div>
           );
         })
@@ -119,45 +174,6 @@ function isLinkActive(href: string): boolean {
     </button>
   </div>
 
-  <div id="mega-menu" class="mega-menu absolute right-0 left-0 top-full z-40 hidden border-t border-gray-200 bg-white shadow-lg" aria-hidden="true">
-    {
-      menuItems.map((item) => (
-        <div class="mega-panel hidden" data-panel={item.id}>
-          <div class="mx-auto grid max-w-6xl grid-cols-2 gap-12 px-6 py-8 sm:px-8">
-            {
-              item.columns?.map((column, colIndex) => (
-                <div class:list={[colIndex === 1 && 'border-l border-gray-200 pl-12']}>
-                  <p class="text-xs font-semibold tracking-wider text-gie-navy-light uppercase">
-                    {column.heading}
-                  </p>
-                  <ul class="mt-4 space-y-2.5">
-                    {
-                      column.links.map((link) => (
-                        <li>
-                          <a
-                            href={url(link.href)}
-                            class:list={[
-                              'text-sm hover:text-gie-navy',
-                              isLinkActive(link.href)
-                                ? 'font-medium text-gie-navy'
-                                : 'text-gie-text',
-                            ]}
-                          >
-                            {link.label}
-                          </a>
-                        </li>
-                      ))
-                    }
-                  </ul>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-      ))
-    }
-  </div>
-
   <nav
     id="mobile-menu"
     class="hidden border-t border-gray-200 bg-white lg:hidden"
@@ -166,12 +182,12 @@ function isLinkActive(href: string): boolean {
     <div class="mx-auto max-w-6xl px-4 py-3 sm:px-6">
       {
         mainNavigation.map((item) => {
-          if (!item.columns) {
+          if (!item.dropdownLinks) {
             return (
               <a
                 href={url(item.href!)}
                 class:list={[
-                  'block rounded-md px-3 py-3 text-sm font-medium',
+                  'block border-b border-dotted border-gray-200 px-3 py-3 text-sm font-semibold uppercase tracking-wide',
                   isNavItemActive(item)
                     ? 'text-gie-navy'
                     : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
@@ -183,50 +199,36 @@ function isLinkActive(href: string): boolean {
           }
 
           return (
-            <details class="group/mobile border-b border-gray-100 py-1 last:border-0">
-              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-3 py-3 text-sm font-medium text-gie-text marker:content-none hover:bg-gie-gray hover:text-gie-navy [&::-webkit-details-marker]:hidden">
+            <details class="group/mobile border-b border-dotted border-gray-200 py-1">
+              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-3 py-3 text-sm font-semibold uppercase tracking-wide text-gie-text marker:content-none hover:bg-gie-gray hover:text-gie-navy [&::-webkit-details-marker]:hidden">
                 <span>{item.label}</span>
                 <svg
-                  class="h-4 w-4 shrink-0 transition-transform group-open/mobile:rotate-180"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  class="h-3.5 w-3.5 shrink-0 transition-transform group-open/mobile:rotate-180"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
                   aria-hidden="true"
                 >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  <path d="M5.25 7.5 10 12.25 14.75 7.5H5.25Z" />
                 </svg>
               </summary>
-              <div class="space-y-4 pb-3 pl-3">
-                <a
-                  href={url(item.href!)}
-                  class="block rounded-md px-3 py-2 text-sm font-medium text-gie-navy hover:bg-gie-gray"
-                >
-                  View {item.label} page
-                </a>
+              <ul class="pb-2">
                 {
-                  item.columns?.map((column) => (
-                    <div>
-                      <p class="px-3 text-xs font-semibold tracking-wider text-gie-navy-light uppercase">
-                        {column.heading}
-                      </p>
-                      <ul class="mt-2 space-y-1">
-                        {
-                          column.links.map((link) => (
-                            <li>
-                              <a
-                                href={url(link.href)}
-                                class="block rounded-md px-3 py-2 text-sm text-gie-text hover:bg-gie-gray hover:text-gie-navy"
-                              >
-                                {link.label}
-                              </a>
-                            </li>
-                          ))
-                        }
-                      </ul>
-                    </div>
+                  item.dropdownLinks.map((link, index) => (
+                    <li>
+                      <a
+                        href={url(link.href)}
+                        class:list={[
+                          'block border-b border-dotted border-gray-200 px-5 py-2.5 text-sm hover:bg-gie-gray hover:text-gie-navy',
+                          index === item.dropdownLinks!.length - 1 && 'border-b-0 font-semibold text-gie-navy',
+                          isLinkActive(link.href) ? 'text-gie-navy' : 'text-gie-text',
+                        ]}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
                   ))
                 }
-              </div>
+              </ul>
             </details>
           );
         })
@@ -236,72 +238,51 @@ function isLinkActive(href: string): boolean {
 </header>
 
 <style>
-  .mega-menu::before {
+  .nav-dropdown-panel::before {
     content: '';
     position: absolute;
     bottom: 100%;
     left: 0;
     right: 0;
-    height: 0.75rem;
+    height: 0.5rem;
   }
 
   .nav-dropdown-trigger:hover .nav-chevron,
-  .nav-dropdown-trigger:focus-within .nav-chevron {
+  .nav-dropdown-trigger:focus-within .nav-chevron,
+  .nav-dropdown-trigger.is-active .nav-chevron {
     transform: rotate(180deg);
   }
 
   .nav-chevron {
     transition: transform 0.15s ease;
   }
+
+  .nav-dropdown-panel ul {
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af #f3f4f6;
+  }
+
+  .nav-dropdown-panel ul::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .nav-dropdown-panel ul::-webkit-scrollbar-track {
+    background: #f3f4f6;
+  }
+
+  .nav-dropdown-panel ul::-webkit-scrollbar-thumb {
+    background: #9ca3af;
+    border-radius: 9999px;
+  }
+
+  .nav-dropdown-panel ul::-webkit-scrollbar-button {
+    display: block;
+    height: 8px;
+    background: #f3f4f6;
+  }
 </style>
 
 <script>
-  const header = document.getElementById('site-header');
-  const megaMenu = document.getElementById('mega-menu');
-  const triggers = header?.querySelectorAll('.nav-dropdown-trigger');
-  const panels = megaMenu?.querySelectorAll('.mega-panel');
-  let hideTimer: ReturnType<typeof setTimeout> | undefined;
-
-  function showPanel(id: string) {
-    if (!megaMenu || !panels) return;
-    clearTimeout(hideTimer);
-    megaMenu.classList.remove('hidden');
-    megaMenu.setAttribute('aria-hidden', 'false');
-    panels.forEach((panel) => {
-      panel.classList.toggle('hidden', panel.getAttribute('data-panel') !== id);
-    });
-  }
-
-  function hideMenu() {
-    hideTimer = setTimeout(() => {
-      megaMenu?.classList.add('hidden');
-      megaMenu?.setAttribute('aria-hidden', 'true');
-      panels?.forEach((panel) => panel.classList.add('hidden'));
-    }, 100);
-  }
-
-  triggers?.forEach((trigger) => {
-    const id = trigger.getAttribute('data-menu');
-    if (!id) return;
-
-    trigger.addEventListener('mouseenter', () => showPanel(id));
-    trigger.addEventListener('focusin', () => showPanel(id));
-  });
-
-  header?.addEventListener('mouseleave', hideMenu);
-
-  megaMenu?.addEventListener('mouseenter', () => clearTimeout(hideTimer));
-  megaMenu?.addEventListener('mouseleave', hideMenu);
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      clearTimeout(hideTimer);
-      megaMenu?.classList.add('hidden');
-      megaMenu?.setAttribute('aria-hidden', 'true');
-      panels?.forEach((panel) => panel.classList.add('hidden'));
-    }
-  });
-
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
 

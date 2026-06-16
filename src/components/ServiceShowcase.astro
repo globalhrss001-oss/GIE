@@ -1,28 +1,30 @@
 ---
 import { services } from '../data/services';
 import { url } from '../utils/url';
+import ShowcaseTile from './ShowcaseTile.astro';
 ---
 
-<ul class="service-showcase-grid grid gap-3 sm:grid-cols-2 sm:gap-4">
+<ul class="grid gap-3 sm:grid-cols-2 sm:gap-4">
   {
-    services.map((service) => (
+    services.map((service, index) => (
       <li>
-        <a
+        <ShowcaseTile
           href={url(`/services/#${service.id}`)}
-          class="block h-full rounded-lg border border-gray-200 bg-white px-5 py-3.5 text-sm font-bold leading-snug text-gie-navy shadow-sm transition hover:border-gie-navy/25 hover:bg-gie-gray sm:px-6 sm:py-4 sm:text-base"
-        >
-          {service.title}
-        </a>
+          label={service.title}
+          index={index + 1}
+          align="left"
+        />
       </li>
     ))
   }
 </ul>
 
-<div class="mt-8 text-center">
+<div class="mt-10 text-center">
   <a
     href={url('/services/')}
-    class="inline-block rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-gie-navy-light"
+    class="inline-flex items-center gap-2 rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-gie-navy-light hover:shadow-md"
   >
     View All Services
+    <span aria-hidden="true">→</span>
   </a>
 </div>
