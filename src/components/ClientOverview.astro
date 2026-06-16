@@ -1,13 +1,23 @@
 ---
 import { clientGroups } from '../data/clients';
+import { asset } from '../utils/url';
 ---
 
-<section class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-  <div class="px-6 py-8 sm:px-10 sm:py-10">
+<section class="relative overflow-hidden rounded-xl border border-gray-200 bg-gie-gray/40 shadow-sm">
+  <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    <img
+      src={asset('images/world-map.svg')}
+      alt=""
+      class="absolute inset-0 h-full w-full scale-110 object-cover opacity-[0.18] blur-[2px] brightness-0"
+    />
+    <div class="absolute inset-0 bg-gradient-to-br from-white/88 via-gie-gray/70 to-gie-navy/8"></div>
+  </div>
+
+  <div class="relative px-6 py-8 sm:px-10 sm:py-10">
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {
         clientGroups.map((group) => (
-          <div class="rounded-lg border border-gray-100 bg-gie-gray/40 p-5">
+          <div class="rounded-lg border border-white/80 bg-white/85 p-5 shadow-sm backdrop-blur-[1px]">
             <h3 class="border-b border-gie-navy/20 pb-2 text-base font-bold uppercase tracking-wide text-gie-navy">
               {group.country}
             </h3>
