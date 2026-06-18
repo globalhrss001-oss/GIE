@@ -1,7 +1,7 @@
 export const teamPhoto = {
   src: '/images/team/gie-team.png',
   alt: 'Global Infrastructure Engineering team photo',
-  caption: 'The GIE team — field engineers and technicians serving clients across Asia Pacific.',
+  caption: 'The GIE team — field engineers and technicians serving clients across Asia Pacific and Middle East.',
 };
 
 export const certificatePhoto = {
