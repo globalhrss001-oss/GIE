@@ -23,40 +23,6 @@ body {
   background-color: #ffffff;
 }
 
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root) {
-  animation: page-fade-out 0.16s ease-in both;
-}
-
-::view-transition-new(root) {
-  animation: page-fade-in 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes page-fade-out {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes page-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 #site-header {
   z-index: 100;
   isolation: isolate;
@@ -103,11 +69,4 @@ body {
 .nav-dropdown-list::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 9999px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-  }
 }

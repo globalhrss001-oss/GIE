@@ -494,7 +494,7 @@ function isOrgChartLink(link: NavLinkItem): boolean {
     });
   }
 
-  document.addEventListener('astro:page-load', syncNavActiveState);
+  syncNavActiveState();
 
   function initDesktopDropdowns() {
     document.querySelectorAll<HTMLElement>('.nav-dropdown-trigger').forEach((trigger) => {
@@ -513,5 +513,5 @@ function isOrgChartLink(link: NavLinkItem): boolean {
     });
   }
 
-  document.addEventListener('astro:page-load', initDesktopDropdowns);
+  initDesktopDropdowns();
 </script>

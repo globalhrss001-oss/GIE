@@ -356,5 +356,5 @@ const marqueeUnit = `${industries.map((industry) => industry.name).join('\u00A0Â
     heroCleanup = () => cleanups.forEach((cleanup) => cleanup());
   }
 
-  document.addEventListener('astro:page-load', initHero);
+  initHero();
 </script>
