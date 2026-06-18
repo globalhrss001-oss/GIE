@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { company } from '../data/company';
@@ -38,12 +39,21 @@ const ogImage = asset('images/logo/gie-logo.png');
     <meta name="twitter:description" content={description} />
 
     <title>{fullTitle}</title>
+    <ClientRouter />
   </head>
   <body class="flex min-h-screen flex-col">
-    <Header />
-    <main class="flex-1">
+    <Header transition:persist="site-header" />
+    <main class="page-content flex-1">
       <slot />
     </main>
-    <Footer />
+    <Footer transition:persist="site-footer" />
   </body>
 </html>
+
+<script>
+  document.addEventListener('astro:after-swap', () => {
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  });
+</script>

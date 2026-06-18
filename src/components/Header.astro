@@ -105,13 +105,15 @@ function isOrgChartLink(link: NavLinkItem): boolean {
             return (
               <a
                 href={url(item.href!)}
-                class:list={[navLinkBase, active ? navLinkActive : navLinkIdle]}
+                data-nav-match={(item.matchPaths ?? [item.href!]).join(',')}
+                data-nav-home={item.href === '/' ? 'true' : undefined}
+                class:list={[navLinkBase, active ? navLinkActive : navLinkIdle, 'nav-top-link']}
               >
                 {item.label}
                 {
                   active && (
                     <span
-                      class="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-gie-navy"
+                      class="nav-top-indicator absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-gie-navy"
                       aria-hidden="true"
                     />
                   )
@@ -128,12 +130,14 @@ function isOrgChartLink(link: NavLinkItem): boolean {
             <div
               class:list={['nav-dropdown-trigger relative', active && 'is-active']}
               data-menu={item.id}
+              data-nav-match={(item.matchPaths ?? [item.href!]).join(',')}
+              data-nav-home={item.href === '/' ? 'true' : undefined}
             >
               <a
                 href={url(item.href!)}
                 class:list={[
                   navLinkBase,
-                  'nav-dropdown-link',
+                  'nav-dropdown-link nav-top-link',
                   active ? navLinkActive : navLinkIdle,
                 ]}
                 aria-haspopup="true"
@@ -142,7 +146,7 @@ function isOrgChartLink(link: NavLinkItem): boolean {
                 {
                   active && (
                     <span
-                      class="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-gie-navy"
+                      class="nav-top-indicator absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-gie-navy"
                       aria-hidden="true"
                     />
                   )
@@ -189,16 +193,18 @@ function isOrgChartLink(link: NavLinkItem): boolean {
                             <a
                               href={url(link.href!)}
                               role="menuitem"
+                              data-nav-link={link.href}
                               class:list={[
                                 dropdownItemBase,
+                                'nav-sub-link',
                                 isLinkActive(link.href!)
-                                  ? 'bg-gie-navy/8 font-medium text-gie-navy'
+                                  ? 'bg-gie-navy/8 font-medium text-gie-navy nav-sub-link-active'
                                   : '',
                               ]}
                             >
                               <span
                                 class:list={[
-                                  'mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full transition-colors',
+                                  'nav-sub-dot mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full transition-colors',
                                   isLinkActive(link.href!)
                                     ? 'bg-gie-navy'
                                     : 'bg-gray-300 group-hover/item:bg-gie-navy',
@@ -266,10 +272,12 @@ function isOrgChartLink(link: NavLinkItem): boolean {
             return (
               <a
                 href={url(item.href!)}
+                data-nav-match={(item.matchPaths ?? [item.href!]).join(',')}
+                data-nav-home={item.href === '/' ? 'true' : undefined}
                 class:list={[
-                  'block rounded-md px-3 py-3 text-sm font-medium',
+                  'nav-mobile-top block rounded-md px-3 py-3 text-sm font-medium',
                   isNavItemActive(item)
-                    ? 'bg-gie-navy/8 text-gie-navy'
+                    ? 'bg-gie-navy/8 text-gie-navy nav-mobile-top-active'
                     : 'text-gie-text hover:bg-gie-gray hover:text-gie-navy',
                 ]}
               >
@@ -313,10 +321,11 @@ function isOrgChartLink(link: NavLinkItem): boolean {
                         ) : (
                           <a
                             href={url(link.href!)}
+                            data-nav-link={link.href}
                             class:list={[
-                              'block px-4 py-2.5 text-sm transition-colors',
+                              'nav-mobile-sub block px-4 py-2.5 text-sm transition-colors',
                               isLinkActive(link.href!)
-                                ? 'bg-white font-medium text-gie-navy'
+                                ? 'bg-white font-medium text-gie-navy nav-mobile-sub-active'
                                 : 'text-gie-text hover:bg-white hover:text-gie-navy',
                             ]}
                           >
@@ -417,4 +426,113 @@ function isOrgChartLink(link: NavLinkItem): boolean {
     btn.setAttribute('aria-expanded', String(!isOpen));
     btn.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
   });
+
+  function normalizeClientPath(pathname: string): string {
+    const base = import.meta.env.BASE_URL;
+    if (base !== '/' && pathname.startsWith(base)) {
+      return pathname.slice(base.length - 1) || '/';
+    }
+    return pathname;
+  }
+
+  function isHomePath(pathname: string): boolean {
+    const normalized = normalizeClientPath(pathname);
+    return (
+      normalized === '/' ||
+      normalized === '' ||
+      pathname.endsWith('/GIE') ||
+      pathname.endsWith('/GIE/')
+    );
+  }
+
+  function isTopNavActive(matchPaths: string, isHome: boolean, pathname: string): boolean {
+    if (isHome) return isHomePath(pathname);
+
+    const normalized = normalizeClientPath(pathname).replace(/\/$/, '') || '/';
+    return matchPaths
+      .split(',')
+      .filter(Boolean)
+      .some((segment) => normalized.includes(segment.replace(/\/$/, '')));
+  }
+
+  function isSubNavActive(href: string, pathname: string, hash: string): boolean {
+    const [pathPart, hashPart] = href.split('#');
+    const normalizedHref = pathPart === '/' ? pathPart : pathPart.replace(/\/$/, '');
+    const normalizedPath = normalizeClientPath(pathname).replace(/\/$/, '') || '/';
+
+    if (pathPart === '/') {
+      return isHomePath(pathname) && !hashPart;
+    }
+
+    const pathMatches =
+      normalizedPath === normalizedHref || normalizedPath.startsWith(`${normalizedHref}/`);
+
+    if (!hashPart) {
+      return pathMatches;
+    }
+
+    return pathMatches && hash === `#${hashPart}`;
+  }
+
+  function syncNavActiveState() {
+    const pathname = window.location.pathname;
+    const hash = window.location.hash;
+
+    document.querySelectorAll<HTMLElement>('[data-nav-match]').forEach((item) => {
+      const matchPaths = item.dataset.navMatch ?? '';
+      const isHome = item.dataset.navHome === 'true';
+      const active = isTopNavActive(matchPaths, isHome, pathname);
+
+      item.classList.toggle('is-active', active);
+
+      item.querySelectorAll<HTMLElement>('.nav-top-link').forEach((link) => {
+        link.classList.toggle('text-gie-navy', active);
+        link.classList.toggle('text-gie-text', !active);
+
+        let indicator = link.querySelector<HTMLElement>('.nav-top-indicator');
+        if (active && !indicator) {
+          indicator = document.createElement('span');
+          indicator.className =
+            'nav-top-indicator absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-gie-navy';
+          indicator.setAttribute('aria-hidden', 'true');
+          link.appendChild(indicator);
+        } else if (!active) {
+          indicator?.remove();
+        }
+      });
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-nav-link]').forEach((link) => {
+      const href = link.dataset.navLink ?? '';
+      const active = isSubNavActive(href, pathname, hash);
+      const dot = link.querySelector<HTMLElement>('.nav-sub-dot');
+
+      link.classList.toggle('nav-sub-link-active', active);
+      link.classList.toggle('bg-gie-navy/8', active && link.classList.contains('nav-sub-link'));
+      link.classList.toggle('font-medium', active && link.classList.contains('nav-sub-link'));
+      link.classList.toggle('text-gie-navy', active);
+
+      if (dot) {
+        dot.classList.toggle('bg-gie-navy', active);
+        dot.classList.toggle('bg-gray-300', !active);
+      }
+
+      link.classList.toggle('nav-mobile-sub-active', active);
+      link.classList.toggle('bg-white', active && link.classList.contains('nav-mobile-sub'));
+      link.classList.toggle('font-medium', active && link.classList.contains('nav-mobile-sub'));
+    });
+
+    document.querySelectorAll<HTMLElement>('.nav-mobile-top[data-nav-match]').forEach((link) => {
+      const matchPaths = link.dataset.navMatch ?? '';
+      const isHome = link.dataset.navHome === 'true';
+      const active = isTopNavActive(matchPaths, isHome, pathname);
+
+      link.classList.toggle('nav-mobile-top-active', active);
+      link.classList.toggle('bg-gie-navy/8', active);
+      link.classList.toggle('text-gie-navy', active);
+      link.classList.toggle('text-gie-text', !active);
+    });
+  }
+
+  document.addEventListener('astro:page-load', syncNavActiveState);
 </script>

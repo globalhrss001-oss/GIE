@@ -7,9 +7,9 @@ const topRow = industries.slice(0, 4);
 const bottomRow = industries.slice(4);
 ---
 
-<section class="border-t border-gray-200 bg-gradient-to-b from-white to-gie-gray/60 py-16">
+<section class="industry-showcase-root border-t border-gray-200 bg-gradient-to-b from-white to-gie-gray/60 py-16">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
-    <div class="mx-auto mb-10 max-w-2xl text-center">
+    <div class="industry-reveal industry-reveal-header mx-auto mb-10 max-w-2xl text-center">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gie-navy-light">Sectors</p>
       <h2 class="mt-2 text-2xl font-bold text-gie-navy sm:text-3xl">Industries We Serve</h2>
       <p class="mt-2 text-gie-muted">Supporting critical sectors across Asia and globally.</p>
@@ -20,12 +20,14 @@ const bottomRow = industries.slice(4);
       <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
         {
           topRow.map((industry, index) => (
-            <ShowcaseTile
-              href={url(`/industries/#${industry.id}`)}
-              label={industry.name}
-              index={index + 1}
-              align="center"
-            />
+            <div class="industry-reveal industry-reveal-rise" style={`--reveal-delay: ${120 + index * 85}ms`}>
+              <ShowcaseTile
+                href={url(`/industries/#${industry.id}`)}
+                label={industry.name}
+                index={index + 1}
+                align="center"
+              />
+            </div>
           ))
         }
       </div>
@@ -33,18 +35,23 @@ const bottomRow = industries.slice(4);
       <div class="grid grid-cols-2 gap-3 sm:mx-auto sm:max-w-[calc(75%-0.75rem)] sm:grid-cols-3 sm:gap-4">
         {
           bottomRow.map((industry, index) => (
-            <ShowcaseTile
-              href={url(`/industries/#${industry.id}`)}
-              label={industry.name}
-              index={index + 5}
-              align="center"
-            />
+            <div
+              class="industry-reveal industry-reveal-rise"
+              style={`--reveal-delay: ${120 + (index + 4) * 85}ms`}
+            >
+              <ShowcaseTile
+                href={url(`/industries/#${industry.id}`)}
+                label={industry.name}
+                index={index + 5}
+                align="center"
+              />
+            </div>
           ))
         }
       </div>
     </div>
 
-    <div class="mt-10 text-center">
+    <div class="industry-reveal industry-reveal-rise mt-10 text-center" style="--reveal-delay: 720ms">
       <a
         href={url('/industries/')}
         class="inline-flex items-center gap-2 rounded-md bg-gie-navy px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-gie-navy-light hover:shadow-md"
@@ -55,3 +62,70 @@ const bottomRow = industries.slice(4);
     </div>
   </div>
 </section>
+
+<style>
+  .industry-reveal {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-y, 0), 0) scale(var(--reveal-scale, 1));
+    transition:
+      opacity 0.7s ease,
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .industry-reveal-header {
+    --reveal-y: 1.25rem;
+    --reveal-scale: 1;
+  }
+
+  .industry-reveal-rise {
+    --reveal-y: 2.25rem;
+    --reveal-scale: 0.92;
+  }
+
+  .industry-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .industry-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initIndustryReveal() {
+    document.querySelectorAll('.industry-showcase-root').forEach((root) => {
+      const revealItems = root.querySelectorAll('.industry-reveal');
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        revealItems.forEach((item) => item.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            revealItems.forEach((item) => item.classList.add('is-visible'));
+            observer.disconnect();
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: '0px 0px -5% 0px',
+        },
+      );
+
+      observer.observe(root);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initIndustryReveal);
+</script>

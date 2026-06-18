@@ -11,10 +11,17 @@ const { theme = 'light' } = Astro.props;
 const isDark = theme === 'dark';
 ---
 
-<ul class="grid gap-3 sm:grid-cols-2 sm:gap-4">
+<div class="service-showcase-root">
+  <ul class="service-showcase-grid grid gap-3 sm:grid-cols-2 sm:gap-4">
   {
     services.map((service, index) => (
-      <li>
+      <li
+        class:list={[
+          'service-reveal',
+          index % 2 === 0 ? 'service-reveal-left' : 'service-reveal-right',
+        ]}
+        style={`--reveal-delay: ${index * 70}ms`}
+      >
         <ShowcaseTile
           href={url(`/services/#${service.id}`)}
           label={service.title}
@@ -27,7 +34,7 @@ const isDark = theme === 'dark';
   }
 </ul>
 
-<div class="mt-10 text-center">
+<div class="service-reveal service-reveal-up mt-10 text-center" style="--reveal-delay: 420ms">
   <a
     href={url('/services/')}
     class:list={[
@@ -41,3 +48,84 @@ const isDark = theme === 'dark';
     <span aria-hidden="true">→</span>
   </a>
 </div>
+</div>
+
+<style>
+  .service-reveal {
+    opacity: 0;
+    transform: translate3d(var(--reveal-x, 0), var(--reveal-y, 0), 0);
+    transition:
+      opacity 0.65s ease,
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .service-reveal-left {
+    --reveal-x: -3.5rem;
+  }
+
+  .service-reveal-right {
+    --reveal-x: 3.5rem;
+  }
+
+  .service-reveal-up {
+    --reveal-x: 0;
+    --reveal-y: 1.5rem;
+  }
+
+  .service-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  @media (min-width: 640px) {
+    .service-reveal-left {
+      --reveal-x: -5rem;
+    }
+
+    .service-reveal-right {
+      --reveal-x: 5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initServiceReveal() {
+    document.querySelectorAll('.service-showcase-root').forEach((root) => {
+      const revealItems = root.querySelectorAll('.service-reveal');
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        revealItems.forEach((item) => item.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            revealItems.forEach((item) => item.classList.add('is-visible'));
+            observer.disconnect();
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: '0px 0px -5% 0px',
+        },
+      );
+
+      observer.observe(root);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initServiceReveal);
+</script>
