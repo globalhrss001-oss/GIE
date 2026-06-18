@@ -60,10 +60,11 @@ export const galleryImages: GalleryImage[] = [
   },
   {
     src: '/images/gallery/valve-training-session.jpeg',
-    alt: 'GIE instructors conducting valve training for client personnel',
-    title: 'Valve Training Session',
-    category: 'Valve Training',
-    description: 'Hands-on control and safety valve training delivered at a client facility.',
+    alt: 'GIE training facility with instructors delivering valve training to client personnel',
+    title: 'GIE Facilities',
+    category: 'GIE Facilities',
+    description:
+      'Control and safety training programmes delivered at GIE facilities for client engineers and technicians.',
   },
   {
     src: '/images/working/working-site-1.jpeg',
