@@ -255,10 +255,12 @@ const marqueeUnit = `${industries.map((industry) => industry.name).join('\u00A0Â
       firstItem.textContent = unit;
       let segment = unit;
       const containerWidth = marquee.clientWidth;
+      let repeats = 0;
 
-      while (firstItem.scrollWidth < containerWidth * 1.15) {
+      while (firstItem.scrollWidth < containerWidth * 1.15 && repeats < 24) {
         segment += unit;
         firstItem.textContent = segment;
+        repeats += 1;
       }
 
       items.forEach((item, index) => {
@@ -278,10 +280,12 @@ const marqueeUnit = `${industries.map((industry) => industry.name).join('\u00A0Â
     heroCleanup?.();
 
     const cleanups: (() => void)[] = [];
-    setupIndustryMarquee();
+
+    const runMarquee = () => setupIndustryMarquee();
+    requestAnimationFrame(runMarquee);
 
     const onResize = () => setupIndustryMarquee();
-    window.addEventListener('resize', onResize);
+    window.addEventListener('resize', onResize, { passive: true });
     cleanups.push(() => window.removeEventListener('resize', onResize));
 
     const slider = document.getElementById('hero-slider');

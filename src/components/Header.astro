@@ -163,7 +163,7 @@ function isOrgChartLink(link: NavLinkItem): boolean {
                 </svg>
               </a>
 
-              <div class="nav-dropdown-panel pointer-events-none absolute top-[calc(100%+0.35rem)] left-0 z-50 w-[19rem] opacity-0 transition-all duration-200" role="menu">
+              <div class="nav-dropdown-panel pointer-events-none absolute top-[calc(100%+0.35rem)] left-0 z-[110] w-[19rem] opacity-0 transition-all duration-200" role="menu">
                 <div class="overflow-hidden rounded-xl border border-gray-200/90 bg-white shadow-[0_16px_40px_-12px_rgba(43,58,120,0.25)] ring-1 ring-black/5">
                   <div class="border-b border-gie-navy/10 bg-gradient-to-r from-gie-navy to-gie-navy-light px-4 py-3">
                     <p class="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white/75">
@@ -374,46 +374,6 @@ function isOrgChartLink(link: NavLinkItem): boolean {
       margin-right: -0.5rem;
     }
   }
-
-  .nav-dropdown-panel::before {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 0;
-    right: 0;
-    height: 0.5rem;
-  }
-
-  .nav-dropdown-trigger:hover .nav-chevron,
-  .nav-dropdown-trigger:focus-within .nav-chevron {
-    transform: rotate(180deg);
-    color: var(--color-gie-navy);
-  }
-
-  .nav-dropdown-trigger:hover .nav-dropdown-panel,
-  .nav-dropdown-trigger:focus-within .nav-dropdown-panel {
-    pointer-events: auto;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .nav-chevron {
-    transition: transform 0.2s ease, color 0.2s ease;
-  }
-
-  .nav-dropdown-list {
-    scrollbar-width: thin;
-    scrollbar-color: #cbd5e1 transparent;
-  }
-
-  .nav-dropdown-list::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .nav-dropdown-list::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 9999px;
-  }
 </style>
 
 <script>
@@ -535,4 +495,23 @@ function isOrgChartLink(link: NavLinkItem): boolean {
   }
 
   document.addEventListener('astro:page-load', syncNavActiveState);
+
+  function initDesktopDropdowns() {
+    document.querySelectorAll<HTMLElement>('.nav-dropdown-trigger').forEach((trigger) => {
+      if (trigger.dataset.dropdownInit === 'true') return;
+      trigger.dataset.dropdownInit = 'true';
+
+      const open = () => trigger.classList.add('is-open');
+      const close = () => trigger.classList.remove('is-open');
+
+      trigger.addEventListener('mouseenter', open);
+      trigger.addEventListener('mouseleave', close);
+      trigger.addEventListener('focusin', open);
+      trigger.addEventListener('focusout', (event) => {
+        if (!trigger.contains(event.relatedTarget as Node)) close();
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initDesktopDropdowns);
 </script>
