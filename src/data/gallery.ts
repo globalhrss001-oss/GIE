@@ -59,6 +59,13 @@ export const galleryImages: GalleryImage[] = [
     description: 'Control and safety valve training with standard compliance certification.',
   },
   {
+    src: '/images/gallery/valve-training-session.jpeg',
+    alt: 'GIE instructors conducting valve training for client personnel',
+    title: 'Valve Training Session',
+    category: 'Valve Training',
+    description: 'Hands-on control and safety valve training delivered at a client facility.',
+  },
+  {
     src: '/images/working/working-site-1.jpeg',
     alt: 'GIE engineers on-site at an industrial facility',
     title: 'On-Site Field Service',
